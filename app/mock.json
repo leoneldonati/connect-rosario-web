@@ -1,6 +1,6 @@
 [
   {
-    "_id": 1,
+    "_id": "1",
     "title": "Smartphone XYZ",
     "description": "Último modelo de smartphone con pantalla de 6.5 pulgadas y cámara de 48MP.",
     "retail_price": 699.99,
@@ -11,7 +11,7 @@
     "in_stock": true
   },
   {
-    "_id": 2,
+    "_id": "2",
     "title": "Novela de Ciencia Ficción",
     "description": "Una emocionante historia de aventuras en el espacio exterior.",
     "retail_price": 19.99,
@@ -22,7 +22,7 @@
     "in_stock": true
   },
   {
-    "_id": 3,
+    "_id": "3",
     "title": "Licuadora de Alta Potencia",
     "description": "Licuadora con motor de 1000W y jarra de vidrio de 1.5L.",
     "retail_price": 89.99,
@@ -33,7 +33,7 @@
     "in_stock": false
   },
   {
-    "_id": 4,
+    "_id": "4",
     "title": "Camiseta de Algodón",
     "description": "Camiseta unisex de manga corta, disponible en varias tallas.",
     "retail_price": 15.99,
@@ -44,7 +44,7 @@
     "in_stock": true
   },
   {
-    "_id": 5,
+    "_id": "5",
     "title": "Juego de Construcción",
     "description": "Set de bloques de construcción para niños mayores de 3 años.",
     "retail_price": 29.99,
