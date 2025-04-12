@@ -11,7 +11,7 @@ export default function ContactButton() {
       target="_blank"
       rel="noopener noreferrer"
       id="contact-btn"
-      className=" bg-white fixed z-50 bottom-3 right-3 rounded-full flex p-2 gap-1 items-center shadow-md bg-brand_2 shadow-black/80 transition-transform hover:scale-105 "
+      className="bg-white fixed z-50 bottom-3 right-3 rounded-full flex p-2 gap-1 items-center shadow-md bg-brand_2 shadow-black/80 transition-transform hover:scale-105 "
     >
       <Image src={WhatsAppSvg} alt="" />
       <strong> Contáctanos </strong>

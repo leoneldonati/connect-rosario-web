@@ -3,7 +3,7 @@ export default function createMsg(
   { encodeMsg = false }
 ) {
   const names = list.map((prod) => {
-    return `_${prod.name} - Cantidad: ${prod.quantity}_`;
+    return `_${prod.title} - Cantidad: ${prod.quantity}_`;
   });
   const total = list.reduce(
     (acc, value) => acc + value.price * value.quantity,

@@ -5,7 +5,7 @@ import Header from "@components/header";
 import PreHeader from "@components/pre-header";
 import ContactButton from "@components/shared/contact-button";
 import PreFooter from "@components/pre-footer";
-
+import { ToastContainer } from "react-toastify";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -38,6 +38,19 @@ export default function RootLayout({
         <ContactButton />
 
         <PreFooter />
+
+        {/* NOTIFICATIONS */}
+        <ToastContainer
+          position="top-center"
+          autoClose={1500}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+        />
       </body>
     </html>
   );

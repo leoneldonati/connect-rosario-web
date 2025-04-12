@@ -15,7 +15,7 @@ export default function Header() {
         <Logo />
       </Link>
 
-      <div className="hidden md:inline-block">
+      <div className="hidden md:flex items-center gap-2 justify-between w-full">
         <LoginInput />
         <CartButton />
       </div>
@@ -23,7 +23,7 @@ export default function Header() {
       <AsideMenu opened={opened} close={() => setOpened(false)} />
       <button
         onClick={() => setOpened(true)}
-        className="bg-white rounded p-1 transition-transform active:scale-95"
+        className="bg-white md:hidden inline-block rounded p-1 transition-transform active:scale-95"
       >
         <Image src={MenuSvg} alt="" />
       </button>

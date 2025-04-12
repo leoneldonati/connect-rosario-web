@@ -9,3 +9,7 @@ interface Product {
   category: string;
   in_stock: boolean;
 }
+
+interface ProductInCart extends Product {
+  quantity: number;
+}
