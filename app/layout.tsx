@@ -29,11 +29,13 @@ export default function RootLayout({
   return (
     <html lang="es">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased relative`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased relative `}
       >
         <Header />
         <PreHeader />
-        <main className="overflow-hidden">{children}</main>
+        <main className="overflow-hidden max-w-2xl w-full mx-auto">
+          {children}
+        </main>
 
         <ContactButton />
 

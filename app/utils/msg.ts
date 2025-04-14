@@ -6,7 +6,7 @@ export default function createMsg(
     return `_${prod.title} - Cantidad: ${prod.quantity}_`;
   });
   const total = list.reduce(
-    (acc, value) => acc + value.price * value.quantity,
+    (acc, value) => acc + value.retail_price * value.quantity,
     0
   );
 

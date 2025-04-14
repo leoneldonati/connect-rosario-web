@@ -12,10 +12,10 @@ export default function CarouselAuto() {
   const [position, setPosition] = useState(0);
   useEffect(() => {
     const timerId = setInterval(() => {
-      // setPosition((pos) => {
-      //   if (pos === assets.length - 1) return 0;
-      //   return pos + 1;
-      // });
+      setPosition((pos) => {
+        if (pos === assets.length - 1) return 0;
+        return pos + 1;
+      });
     }, 3500);
     return () => clearInterval(timerId);
   }, []);

@@ -15,7 +15,7 @@ export default function Header() {
         <Logo />
       </Link>
 
-      <div className="hidden md:flex items-center gap-2 justify-between w-full">
+      <div className="hidden md:flex items-center gap-2 justify-between w-full pl-36">
         <LoginInput />
         <CartButton />
       </div>
