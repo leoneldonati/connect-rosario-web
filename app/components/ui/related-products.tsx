@@ -13,8 +13,10 @@ export default function RelatedProducts({
   );
 
   return (
-    <section className="w-full border border-black/40 p-3 rounded-md">
-      <h3 className="text-xl font-bold">Productos Relacionados</h3>
+    <section className="w-full border border-brand-1 p-3 rounded-md">
+      <h3 className="text-2xl font-bold text-brand-1">
+        Productos Relacionados
+      </h3>
       {relatedProducts.length > 0 ? (
         <ul className="flex gap-3 overflow-y-hidden overflow-x-auto w-full p-2">
           {relatedProducts.map((product) =>

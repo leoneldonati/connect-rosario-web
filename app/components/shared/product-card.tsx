@@ -7,7 +7,7 @@ export default function ProductCard({ prod }: { prod: Product }) {
     <Link
       href={`/product/${prod._id}`}
       key={prod._id}
-      className="max-w-[200px] w-full p-2 rounded-md shadow-md shadow-black/50 flex flex-col flex-shrink-0 justify-between"
+      className="max-w-[230px] w-full p-2 rounded-md shadow-md shadow-black/50 flex flex-col flex-shrink-0 justify-between"
     >
       <Image src={defaultAsset} alt="" />
       <strong>{prod.title}</strong>

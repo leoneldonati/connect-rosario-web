@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 @theme {
-  --color-accent-1: oklch(54.36% 0.171 285.54);
+  --color-brand-1: #1e90ff;
 }
 
 input:focus-within {

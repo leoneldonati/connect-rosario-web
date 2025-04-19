@@ -29,11 +29,11 @@ export default function RootLayout({
   return (
     <html lang="es">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased relative `}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased relative flex flex-col min-h-screen max-w-6xl mx-auto`}
       >
         <Header />
         <PreHeader />
-        <main className="overflow-hidden max-w-2xl w-full mx-auto">
+        <main className="overflow-hidden max-w-3xl w-full mx-auto flex flex-col flex-grow">
           {children}
         </main>
 
