@@ -11,7 +11,7 @@ export default function Cart() {
   const { cart, getTotal } = useCartStore();
   return (
     <section className="flex flex-col gap-5 py-4">
-      <div className="flex items-center justify-center gap-3">
+      <div className="flex sm:flex-row flex-col items-center justify-center gap-3">
         <strong>
           <span className="text-brand-1 text-xl">{cart.length}</span> productos.
         </strong>
