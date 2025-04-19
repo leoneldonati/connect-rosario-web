@@ -21,7 +21,7 @@ export default function AsideMenu({
       style={{
         transform: opened ? "translateX(0%)" : "translateX(100%)",
       }}
-      className="bg-black flex flex-col items-start gap-4 fixed z-50 right-0 top-0 px-4 pt-8 h-screen  transition-transform"
+      className="bg-brand-1 flex flex-col items-start gap-4 fixed z-50 right-0 top-0 px-4 pt-8 h-screen  transition-transform"
     >
       <button
         onClick={close}

@@ -8,7 +8,7 @@ export default function Home() {
       <CarouselAuto />
 
       <NewIncomes products={mock} limit={15} />
-      <div className="grid md:grid-cols-4 sm:grid-cols-3 grid-cols-2 max-w-[800px] mx-auto gap-3 px-2 py-3">
+      <div className="grid lg:grid-cols-4 sm:grid-cols-2 md:grid-cols-3 grid-cols-1 max-w-[800px] mx-auto gap-3 px-2 py-3 place-items-center">
         {mock.map((prod) => (
           <ProductCard prod={prod} key={prod._id} />
         ))}

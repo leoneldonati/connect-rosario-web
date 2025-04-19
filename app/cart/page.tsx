@@ -10,7 +10,7 @@ import defaultAsset from "@assets/default.png";
 export default function Cart() {
   const { cart, getTotal } = useCartStore();
   return (
-    <section className="flex flex-col gap-5">
+    <section className="flex flex-col gap-5 py-4">
       <div className="flex items-center justify-center gap-3">
         <strong>
           <span className="text-brand-1 text-xl">{cart.length}</span> productos.
@@ -28,7 +28,7 @@ export default function Cart() {
         </a>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 place-items-center gap-2">
         {cart.map((product) => (
           <Link
             href={`/product/${product._id}`}

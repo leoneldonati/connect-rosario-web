@@ -14,15 +14,17 @@ export default function Header() {
         <Logo />
       </Link>
 
-      <CartButton />
-
       <AsideMenu opened={opened} close={() => setOpened(false)} />
-      <button
-        onClick={() => setOpened(true)}
-        className="bg-white md:hidden inline-block rounded p-1 transition-transform active:scale-95"
-      >
-        <Image src={MenuSvg} alt="" />
-      </button>
+
+      <div className="flex gap-2">
+        <CartButton />
+        <button
+          onClick={() => setOpened(true)}
+          className="bg-white md:hidden inline-block rounded p-1 transition-transform active:scale-95"
+        >
+          <Image src={MenuSvg} alt="" />
+        </button>
+      </div>
     </header>
   );
 }
