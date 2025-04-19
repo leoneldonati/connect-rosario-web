@@ -11,7 +11,7 @@ export default function createMsg(
   );
 
   const messageWithoutEncoding = `
-  Hola Distribuidora Multimarcas! 🛒 \n
+  Hola Connect Rosario! 🛒 \n
   *Quiero realizar el siguiente pedido:* \n
   ${names.map((name) => name + "\n")}
   *TOTAL: $${total}*
