@@ -1,25 +1,25 @@
 "use client";
 
-import { PHONE_NUMBER } from "@constants";
-import { useCartStore } from "@store/cart";
-import createMsg from "@utils/msg";
-import Image from "next/image";
-import Link from "next/link";
-import defaultAsset from "@assets/default.png";
+import { PHONE_NUMBER } from "../../constants";
+import { useCartStore } from "../../store/cart";
+import createMsg from "../../utils/msg";
+import ProductCard from "../../components/shared/product-card";
+import { IconTrashFilled } from "@tabler/icons-react";
 
 export default function Cart() {
-  const { cart, getTotal } = useCartStore();
+  const { list, getLength, getTotal, quiteOne } = useCartStore();
   return (
     <section className="flex flex-col gap-5 py-4">
       <div className="flex sm:flex-row flex-col items-center justify-center gap-3">
         <strong>
-          <span className="text-brand-1 text-xl">{cart.length}</span> productos.
+          <span className="text-brand-1 text-xl">{getLength()}</span> productos.
         </strong>
 
-        <p className="text-xl text-brand-1">${getTotal()}</p>
+        <p className="text-xl text-brand-1">${getTotal(true)}</p>
         <a
+          hidden={getLength() === 0}
           href={`https://api.whatsapp.com/send?phone=${PHONE_NUMBER}&text=${createMsg(
-            cart,
+            list,
             { encodeMsg: true }
           )}`}
           className="py-2 px-4 rounded-md bg-green-500 text-white"
@@ -29,21 +29,20 @@ export default function Cart() {
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 place-items-center gap-2">
-        {cart.map((product) => (
-          <Link
-            href={`/product/${product._id}`}
+        {list.map((product) => (
+          <div
             key={product._id}
-            className="max-w-[230px] w-full p-2 rounded-md shadow-md shadow-black/50 flex flex-col flex-shrink-0 justify-between"
+            className="flex flex-col gap-2 rounded-md shadow shadow-brand-1 p-2"
           >
-            <Image src={defaultAsset} alt="" />
-            <strong>{product.title}</strong>
-
-            <div className="flex items-center gap-1">
-              <strong className="text-xl text-green-500">
-                ${product.retail_price}
-              </strong>
-            </div>
-          </Link>
+            <button
+              onClick={() => quiteOne(product._id)}
+              className="text-red-500"
+            >
+              <IconTrashFilled />
+            </button>
+            <ProductCard prod={product} isWholesale />
+            <strong>Cantidad: {product.quantity}</strong>
+          </div>
         ))}
       </div>
     </section>

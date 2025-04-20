@@ -1,5 +1,5 @@
 "use server";
-import { arrayBufferToBase64 } from "@utils/buffer";
+import { arrayBufferToBase64 } from "../utils/buffer";
 import { v2 as cld } from "cloudinary";
 
 cld.config({

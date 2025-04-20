@@ -1,6 +1,6 @@
 "use client";
 import MenuSvg from "@assets/svg/menu-4.svg";
-import Logo from "@components/shared/logo";
+import Logo from "../shared/logo";
 import Image from "next/image";
 import Link from "next/link";
 import mock from "@mock.json";

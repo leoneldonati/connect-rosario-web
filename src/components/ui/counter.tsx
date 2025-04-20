@@ -1,5 +1,5 @@
 "use client";
-import { useCartStore } from "@store/cart";
+import { useCartStore } from "../../store/cart";
 import { IconMinus, IconPlus } from "@tabler/icons-react";
 interface Props {
   prodId: string;

@@ -1,6 +1,6 @@
 "use client";
 
-import { useCartStore } from "@store/cart";
+import { useCartStore } from "../../store/cart";
 import { IconShoppingCart, IconShoppingCartOff } from "@tabler/icons-react";
 import { toast } from "react-toastify";
 

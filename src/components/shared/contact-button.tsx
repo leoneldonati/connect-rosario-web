@@ -1,6 +1,6 @@
 import Image from "next/image";
 import WhatsAppSvg from "@assets/svg/brand-whatsapp.svg";
-import { PHONE_NUMBER } from "@constants";
+import { PHONE_NUMBER } from "../../constants";
 export default function ContactButton() {
   const message = "Hola Connect! Quiero consultar";
   return (

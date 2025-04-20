@@ -8,6 +8,7 @@ interface CartStore {
   addOne: (product: ProductInCart) => void;
   quiteOne: (id: string) => void;
   findById: (id: string) => boolean;
+  getTotal: (isWholesale: boolean) => number;
 }
 export const useCartStore = create(
   persist<CartStore>(
@@ -65,7 +66,20 @@ export const useCartStore = create(
 
         return list.find((prod) => prod._id === id) !== undefined;
       },
+      getTotal: (isWholesale) => {
+        const { list } = get();
+
+        const total = list.reduce(
+          (acc, value) =>
+            acc +
+            (isWholesale ? value.wholesale_price : value.retail_price) *
+              value.quantity,
+          0
+        );
+
+        return total;
+      },
     }),
-    { name: "rgl-cart" }
+    { name: "connect-rosario-cart" }
   )
 );

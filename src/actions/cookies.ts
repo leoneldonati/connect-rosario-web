@@ -3,8 +3,8 @@
 import { cookies } from "next/headers";
 import jwt from "jsonwebtoken";
 import { redirect } from "next/navigation";
-import { verifyPassword } from "@libs/bcrypt";
-import { adminModel } from "@db";
+import { verifyPassword } from "../libs/bcrypt";
+import { adminModel } from "../db";
 import { ObjectId } from "mongodb";
 
 const obtainCookiesStore = async () => await cookies();

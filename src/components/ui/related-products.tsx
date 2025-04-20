@@ -1,4 +1,4 @@
-import ProductCard from "@components/shared/product-card";
+import ProductCard from "../shared/product-card";
 import mock from "@mock.json";
 
 export default function RelatedProducts({

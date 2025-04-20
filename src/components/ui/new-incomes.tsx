@@ -1,5 +1,5 @@
 "use client";
-import ProductCard from "@components/shared/product-card";
+import ProductCard from "../shared/product-card";
 import { IconArrowLeft, IconArrowRight } from "@tabler/icons-react";
 import { useEffect, useState } from "react";
 

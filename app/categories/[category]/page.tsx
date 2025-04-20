@@ -1,4 +1,5 @@
-import ProductCard from "@components/shared/product-card";
+import { isWholesale } from "@actions/cookies";
+import ProductCard from "../../../components/shared/product-card";
 import mock from "@mock.json";
 export default async function Page({
   params,
@@ -12,6 +13,8 @@ export default async function Page({
   const filterByCategory = mock.filter(
     (prod) => prod.category === decodedCategory
   );
+
+  const hasWholesale = await isWholesale();
   return (
     <section className="p-2">
       <h2 className="text-2xl font-bold text-center my-4 bg-brand-1 text-white w-fit mx-auto p-2 rounded">
@@ -19,7 +22,7 @@ export default async function Page({
       </h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 place-items-center">
         {filterByCategory.map((prod) => (
-          <ProductCard prod={prod} key={prod._id} />
+          <ProductCard prod={prod} key={prod._id} isWholesale={hasWholesale} />
         ))}
       </div>
     </section>

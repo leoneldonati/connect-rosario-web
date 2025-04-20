@@ -2,13 +2,13 @@ import mock from "@mock.json";
 import Image from "next/image";
 import logo from "@assets/default.png";
 import BrandWspWhite from "@assets/svg/brand-whatsapp-white.svg";
-import AddCartButton from "@components/ui/add-cart-button";
-import { PHONE_NUMBER } from "@constants";
-import RelatedProducts from "@components/ui/related-products";
-import ImageScalable from "@components/ui/image-scalable";
+import AddCartButton from "../../../components/ui/add-cart-button";
+import { PHONE_NUMBER } from "../../../constants";
+import RelatedProducts from "../../../components/ui/related-products";
+import ImageScalable from "../../../components/ui/image-scalable";
 import { unstable_ViewTransition as ViewTransition } from "react";
 import { isWholesale } from "@actions/cookies";
-import Counter from "@components/ui/counter";
+import Counter from "../../../components/ui/counter";
 
 export default async function Page({
   params,

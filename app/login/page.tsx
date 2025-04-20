@@ -1,4 +1,4 @@
-import LoginInput from "@components/ui/login-input";
+import LoginInput from "../../components/ui/login-input";
 import { IconDiamondFilled } from "@tabler/icons-react";
 
 export default function Login() {
