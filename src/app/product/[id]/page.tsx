@@ -1,7 +1,5 @@
 import mock from "@mock.json";
-import Image from "next/image";
 import logo from "@assets/default.png";
-import BrandWspWhite from "@assets/svg/brand-whatsapp-white.svg";
 import AddCartButton from "@components/ui/add-cart-button";
 import { PHONE_NUMBER } from "@constants";
 import RelatedProducts from "@components/ui/related-products";
@@ -9,7 +7,68 @@ import ImageScalable from "@components/ui/image-scalable";
 import { unstable_ViewTransition as ViewTransition } from "react";
 import { isWholesale } from "@actions/cookies";
 import Counter from "@components/ui/counter";
+import type { Metadata } from "next";
+import { IconBrandWhatsappFilled } from "@tabler/icons-react";
+import ShareButtons from "@components/ui/share-prod-buttons";
 
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}): Promise<Metadata> {
+  const { id } = await params;
+  const product = mock.find((prod) => prod._id === id) as Product;
+
+  if (!product) {
+    return {
+      title: "Producto no encontrado - Connect Rosario",
+      description:
+        "Explora nuestra tienda de productos electrónicos en Connect Rosario.",
+    };
+  }
+
+  return {
+    title: `${product.title} - Connect Rosario`,
+    description: `Compra ${product.title} por $${
+      product.retail_price
+    } en Connect Rosario. ${product.description.slice(
+      0,
+      100
+    )}... ¡Ofertas exclusivas!`,
+    authors: [{ name: "Leonel Donati", url: "https://leodonati.site" }],
+    openGraph: {
+      title: `${product.title} - Connect Rosario`,
+      description: `Compra ${product.title} por $${
+        product.retail_price
+      } en Connect Rosario. ${product.description.slice(0, 100)}...`,
+      url: `https://www.connectrosario.com/products/${product._id}`, // Reemplaza con tu dominio real
+      siteName: "Connect Rosario",
+      images: [
+        {
+          url:
+            product.image_url ||
+            "https://www.connectrosario.com/images/default-product.jpg", // Usa la imagen del producto o una por defecto
+          width: 1200,
+          height: 630,
+          alt: `Imagen de ${product.title}`,
+        },
+      ],
+      locale: "es_AR",
+      type: "article",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${product.title} - Connect Rosario`,
+      description: `Compra ${product.title} por $${
+        product.retail_price
+      } en Connect Rosario. ${product.description.slice(0, 100)}...`,
+      images: [
+        product.image_url ||
+          "https://www.connectrosario.com/images/default-product.jpg",
+      ],
+    },
+  };
+}
 export default async function Page({
   params,
 }: {
@@ -48,9 +107,11 @@ export default async function Page({
               rel="noopener noreferrer"
               className="bg-green-500 text-white font-bold px-4 py-2 rounded-md flex items-center justify-center gap-1"
             >
-              <Image src={BrandWspWhite} alt="" /> Pedir por WhatsApp
+              <IconBrandWhatsappFilled /> Pedir por WhatsApp
             </a>
           </div>
+
+          <ShareButtons product={product!} />
         </div>
       </div>
       <div className="border border-black/40 rounded-md p-4 w-full flex flex-col gap-4">

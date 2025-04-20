@@ -1,9 +1,9 @@
 "use client";
 
-import { PHONE_NUMBER } from "../../constants";
-import { useCartStore } from "../../store/cart";
-import createMsg from "../../utils/msg";
-import ProductCard from "../../components/shared/product-card";
+import { PHONE_NUMBER } from "@constants";
+import { useCartStore } from "@store/cart";
+import createMsg from "@utils/msg";
+import ProductCard from "@components/shared/product-card";
 import { IconTrashFilled } from "@tabler/icons-react";
 import { useEffect, useState } from "react";
 import { isWholesale } from "@actions/cookies";

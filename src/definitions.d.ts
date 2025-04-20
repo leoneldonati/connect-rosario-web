@@ -8,6 +8,7 @@ interface Product {
   created_at: string;
   category: string;
   in_stock: boolean;
+  image_url?: string;
 }
 
 interface ProductInCart extends Product {

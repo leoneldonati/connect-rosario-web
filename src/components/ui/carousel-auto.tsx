@@ -4,9 +4,7 @@ import { useEffect, useState } from "react";
 import asset_1 from "@assets/1.png";
 import asset_2 from "@assets/2.png";
 import asset_3 from "@assets/3.png";
-
-import deviceSvg from "@assets/svg/device-mobile.svg";
-import dollarSvg from "@assets/svg/receipt-dollar.svg";
+import { IconDeviceMobile, IconReportMoney } from "@tabler/icons-react";
 export default function CarouselAuto() {
   const assets = [asset_1, asset_2, asset_3];
   const [position, setPosition] = useState(0);
@@ -52,10 +50,10 @@ export default function CarouselAuto() {
                 className="absolute z-50 top-1/2  transform  -translate-y-1/2 text-white font-bold text-2xl w-full flex flex-col items-center"
               >
                 <p className="flex items-center gap-1">
-                  <Image src={deviceSvg} alt="" /> Reparación de celulares
+                  <IconDeviceMobile /> Reparación de celulares
                 </p>
                 <p className="flex items-center gap-1">
-                  <Image src={dollarSvg} alt="" /> Cotización en el día
+                  <IconReportMoney /> Cotización en el día
                 </p>
               </div>
             </div>

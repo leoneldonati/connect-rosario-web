@@ -1,9 +1,8 @@
 "use client";
-import MenuSvg from "@assets/svg/menu-4.svg";
 import Logo from "../shared/logo";
-import Image from "next/image";
 import Link from "next/link";
 import mock from "@mock.json";
+import { IconMenu4 } from "@tabler/icons-react";
 
 export default function AsideMenu({
   opened,
@@ -28,7 +27,7 @@ export default function AsideMenu({
           onClick={close}
           className="bg-white rounded p-1 transition-transform active:scale-95"
         >
-          <Image src={MenuSvg} alt="" />
+          <IconMenu4 />
         </button>
       </div>
 
