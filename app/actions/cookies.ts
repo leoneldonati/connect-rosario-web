@@ -8,18 +8,21 @@ import { adminModel } from "@db";
 import { ObjectId } from "mongodb";
 
 const obtainCookiesStore = async () => await cookies();
-const COOKIE_NAME = "admin-session";
-
-export async function hasCookies() {
+const ADMIN_COOKIE = "admin-session";
+const WHOLESALE_COOKIE = "admin-wholesale";
+export async function isWholesale() {
   const cookie = await obtainCookiesStore();
   if (!cookie) return false;
 
+  const token = cookie.get(WHOLESALE_COOKIE);
+
+  if (!token) return false;
   return true;
 }
-export async function clearSession() {
+export async function clearSession(cookieName: string) {
   const cookieStore = await obtainCookiesStore();
 
-  cookieStore.delete(COOKIE_NAME);
+  cookieStore.delete(cookieName);
 
   return redirect("/");
 }
@@ -61,7 +64,7 @@ export async function createSession(formState: unknown, formData: FormData) {
   const cookieStore = await obtainCookiesStore();
 
   const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
-  cookieStore.set(COOKIE_NAME, token, {
+  cookieStore.set(WHOLESALE_COOKIE, token, {
     httpOnly: true,
     secure: true,
     expires: expiresAt,

@@ -1,18 +1,19 @@
 "use client";
 
-import Image from "next/image";
-import CartSvg from "@assets/svg/shopping-cart.svg";
 import { useCartStore } from "@store/cart";
+import { IconShoppingCart, IconShoppingCartOff } from "@tabler/icons-react";
 import { toast } from "react-toastify";
 
 interface Props {
   product: Product;
 }
 export default function AddCartButton({ product }: Props) {
-  const { addToCart } = useCartStore();
+  const { addOne, findById } = useCartStore();
 
   const handleClick = () => {
-    addToCart({ ...product, quantity: 1 });
+    addOne({ ...product, quantity: 1 });
+    if (!findById(product._id))
+      return toast.success("¡Producto eliminado del carro!");
     toast.success("¡Producto añadido al carro!");
   };
   return (
@@ -20,7 +21,15 @@ export default function AddCartButton({ product }: Props) {
       onClick={handleClick}
       className="bg-blue-500 text-white font-bold px-4 py-2 rounded-md flex items-center justify-center gap-1"
     >
-      <Image src={CartSvg} alt="" /> Añadir al carro
+      {findById(product._id) ? (
+        <span className="flex items-center gap-1">
+          <IconShoppingCartOff /> Quitar del carro
+        </span>
+      ) : (
+        <span className="flex items-center gap-1">
+          <IconShoppingCart /> Añadir al carro
+        </span>
+      )}
     </button>
   );
 }

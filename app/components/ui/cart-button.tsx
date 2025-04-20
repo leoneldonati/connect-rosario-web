@@ -3,11 +3,11 @@ import Link from "next/link";
 import { useCartStore } from "@store/cart";
 import { IconShoppingCart } from "@tabler/icons-react";
 export default function CartButton() {
-  const { cart } = useCartStore();
+  const { getLength } = useCartStore();
   return (
-    <Link href="/cart" className="flex bg-white/80 p-1 rounded ">
+    <Link href="/cart" className="flex  p-1 rounded text-white ">
       <IconShoppingCart />
-      {cart.length}
+      {getLength()}
     </Link>
   );
 }
