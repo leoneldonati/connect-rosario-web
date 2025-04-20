@@ -2,7 +2,7 @@
 import Link from "next/link";
 import defaultAsset from "@assets/default.png";
 import Image from "next/image";
-
+import { unstable_ViewTransition as ViewTransition } from "react";
 export default function ProductCard({
   prod,
   isWholesale,
@@ -17,9 +17,9 @@ export default function ProductCard({
       key={prod._id}
       className="max-w-[230px] w-full p-2 rounded-md shadow-md shadow-black/50 flex flex-col flex-shrink-0 justify-between"
     >
-      {/* <ViewTransition name={`image-${prod._id}`}> */}
-      <Image src={defaultAsset} alt="" />
-      {/* </ViewTransition> */}
+      <ViewTransition name={`image-${prod._id}`}>
+        <Image src={defaultAsset} alt="" />
+      </ViewTransition>
       <strong className="whitespace-nowrap overflow-hidden text-ellipsis">
         {prod.title}
       </strong>

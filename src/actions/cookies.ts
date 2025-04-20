@@ -6,10 +6,10 @@ import { redirect } from "next/navigation";
 import { verifyPassword } from "../libs/bcrypt";
 import { adminModel } from "../db";
 import { ObjectId } from "mongodb";
+import { WHOLESALE_COOKIE } from "@constants";
 
 const obtainCookiesStore = async () => await cookies();
-const ADMIN_COOKIE = "admin-session";
-const WHOLESALE_COOKIE = "admin-wholesale";
+
 export async function isWholesale() {
   const cookie = await obtainCookiesStore();
   if (!cookie) return false;

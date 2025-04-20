@@ -5,9 +5,15 @@ import { useCartStore } from "../../store/cart";
 import createMsg from "../../utils/msg";
 import ProductCard from "../../components/shared/product-card";
 import { IconTrashFilled } from "@tabler/icons-react";
+import { useEffect, useState } from "react";
+import { isWholesale } from "@actions/cookies";
 
 export default function Cart() {
   const { list, getLength, getTotal, quiteOne } = useCartStore();
+  const [wholesale, setWholesale] = useState(false);
+  useEffect(() => {
+    isWholesale().then((value) => setWholesale(value));
+  }, []);
   return (
     <section className="flex flex-col gap-5 py-4">
       <div className="flex sm:flex-row flex-col items-center justify-center gap-3">
@@ -15,12 +21,12 @@ export default function Cart() {
           <span className="text-brand-1 text-xl">{getLength()}</span> productos.
         </strong>
 
-        <p className="text-xl text-brand-1">${getTotal(true)}</p>
+        <p className="text-xl text-brand-1">${getTotal(wholesale)}</p>
         <a
           hidden={getLength() === 0}
           href={`https://api.whatsapp.com/send?phone=${PHONE_NUMBER}&text=${createMsg(
             list,
-            { encodeMsg: true }
+            { encodeMsg: true, isWholesale: wholesale }
           )}`}
           className="py-2 px-4 rounded-md bg-green-500 text-white"
         >
@@ -40,7 +46,7 @@ export default function Cart() {
             >
               <IconTrashFilled />
             </button>
-            <ProductCard prod={product} isWholesale />
+            <ProductCard prod={product} isWholesale={wholesale} />
             <strong>Cantidad: {product.quantity}</strong>
           </div>
         ))}

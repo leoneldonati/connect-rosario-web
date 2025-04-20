@@ -4,6 +4,7 @@ import ProductCard from "../components/shared/product-card";
 import NewIncomes from "../components/ui/new-incomes";
 import { isWholesale } from "@actions/cookies";
 import { IconShoppingCartDiscount } from "@tabler/icons-react";
+import CloseWholesaleButton from "@components/ui/close-wholesale-session";
 export default async function Home() {
   const sortedByGroup = Object.groupBy(mock, (prod) => prod.category);
   const arrayGrouped = Object.entries(sortedByGroup).map(
@@ -19,11 +20,7 @@ export default async function Home() {
             ¡Bienvenido mayorista! <IconShoppingCartDiscount />
           </p>
 
-          <form action="">
-            <button className="text-red-500 px-2 py-1 rounded bg-red-200 ">
-              Cerrar sesión mayorista
-            </button>
-          </form>
+          <CloseWholesaleButton />
         </div>
       )}
       <CarouselAuto />
