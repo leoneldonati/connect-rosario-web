@@ -26,6 +26,7 @@ export async function clearSession() {
 
 export async function createSession(formState: unknown, formData: FormData) {
   const { password } = Object.fromEntries(formData);
+
   if (!password.toString())
     return {
       error: true,
@@ -71,6 +72,5 @@ export async function createSession(formState: unknown, formData: FormData) {
   return {
     error: false,
     message: "Bienvenido!",
-    token,
   };
 }

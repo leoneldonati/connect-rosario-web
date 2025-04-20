@@ -6,7 +6,7 @@ export default function Logo() {
     <Image
       src={logo}
       alt="Logotipo de la empresa Connect. Empresa líder en electrónica y accesorios."
-      className="max-w-[200px] object-contain"
+      className="max-w-[200px] object-contain w-full"
     />
   );
 }

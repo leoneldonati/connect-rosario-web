@@ -33,7 +33,7 @@ export default function RootLayout({
       >
         <Header />
         <PreHeader />
-        <main className="overflow-hidden max-w-3xl w-full mx-auto flex flex-col flex-grow">
+        <main className="overflow-hidden max-w-3xl w-full mx-auto flex flex-col flex-grow px-2">
           {children}
         </main>
 

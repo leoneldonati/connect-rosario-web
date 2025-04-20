@@ -6,6 +6,7 @@ import Image from "next/image";
 import MenuSvg from "@assets/svg/menu-4.svg";
 import AsideMenu from "./ui/aside-menu";
 import { useState } from "react";
+import { IconUser } from "@tabler/icons-react";
 export default function Header() {
   const [opened, setOpened] = useState(false);
   return (
@@ -16,7 +17,10 @@ export default function Header() {
 
       <AsideMenu opened={opened} close={() => setOpened(false)} />
 
-      <div className="flex gap-2">
+      <div className="flex gap-2 items-center">
+        <Link href="/login" className="text-white bg-brand-1/30">
+          <IconUser />
+        </Link>
         <CartButton />
         <button
           onClick={() => setOpened(true)}
