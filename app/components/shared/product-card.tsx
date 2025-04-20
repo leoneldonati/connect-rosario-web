@@ -1,6 +1,7 @@
 import Link from "next/link";
 import defaultAsset from "@assets/default.png";
 import Image from "next/image";
+import { unstable_ViewTransition as ViewTransition } from "react";
 
 export default function ProductCard({ prod }: { prod: Product }) {
   return (
@@ -9,7 +10,9 @@ export default function ProductCard({ prod }: { prod: Product }) {
       key={prod._id}
       className="max-w-[230px] w-full p-2 rounded-md shadow-md shadow-black/50 flex flex-col flex-shrink-0 justify-between"
     >
-      <Image src={defaultAsset} alt="" />
+      <ViewTransition name={`image-${prod._id}`}>
+        <Image src={defaultAsset} alt="" />
+      </ViewTransition>
       <strong>{prod.title}</strong>
 
       <div className="flex items-center gap-1">

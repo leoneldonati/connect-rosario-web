@@ -6,6 +6,8 @@ import AddCartButton from "@components/ui/add-cart-button";
 import { PHONE_NUMBER } from "@constants";
 import RelatedProducts from "@components/ui/related-products";
 import ImageScalable from "@components/ui/image-scalable";
+import { unstable_ViewTransition as ViewTransition } from "react";
+
 export default async function Page({
   params,
 }: {
@@ -23,7 +25,9 @@ export default async function Page({
   return (
     <section className="flex flex-col gap-4 p-2">
       <div className="w-full flex md:flex-row flex-col gap-4 items-center px-2">
-        <ImageScalable image={logo} />
+        <ViewTransition name={`image-${product?._id}`}>
+          <ImageScalable image={logo} />
+        </ViewTransition>
 
         <div className="w-full flex flex-col gap-4">
           <p className="text-2xl font-bold text-balance">{product?.title}</p>
