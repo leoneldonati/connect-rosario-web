@@ -23,7 +23,10 @@ export default function ProductCard({ prod, isAdmin, isWholesale }: Props) {
           <Link href={`/product/edit/${prod._id}`} className="text-brand-1">
             <IconPencil />
           </Link>
-          <DeleteProductButton id={prod._id} />
+          <DeleteProductButton
+            id={prod._id}
+            publicId={prod.image?.publicId ?? ""}
+          />
         </div>
       )}
 

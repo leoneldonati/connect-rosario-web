@@ -7,8 +7,9 @@ import { useActionState, useEffect } from "react";
 
 interface Props {
   id: string;
+  publicId: string;
 }
-export default function DeleteProductButton({ id }: Props) {
+export default function DeleteProductButton({ id, publicId }: Props) {
   const [state, action, pending] = useActionState(deleteOne, undefined);
 
   useEffect(() => {
@@ -17,7 +18,7 @@ export default function DeleteProductButton({ id }: Props) {
     }
   }, [state]);
   return (
-    <form action={() => action(id)}>
+    <form action={() => action({ id, publicId })}>
       <button>
         {pending ? (
           <IconLoader3 className="animate-spin text-red-500" />

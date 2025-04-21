@@ -1,7 +1,7 @@
 "use server";
 
 import { productsModel } from "@db";
-import { uploadFile } from "@libs/cld";
+import { deleteFile, uploadFile } from "@libs/cld";
 import { convertFile } from "@libs/sharp";
 import { productSchema } from "@libs/zod";
 import { ObjectId } from "mongodb";
@@ -25,7 +25,6 @@ export async function getAll(limit = 100) {
     };
   }
 }
-
 // OBTENER POR _id
 export async function getById(_id: string) {
   try {
@@ -140,12 +139,35 @@ export async function insertOne(formState: unknown, formData: FormData) {
     } as Product,
   };
 }
-
 // BORRAR UNO
-export async function deleteOne(formState: unknown, id: string) {
+export async function deleteOne(
+  formState: unknown,
+  { id, publicId }: { id: string; publicId: string }
+) {
   await productsModel.findOneAndDelete({ _id: new ObjectId(id) });
 
+  await deleteFile(publicId);
   return {
     error: false,
   };
+}
+// OBTENER CATEGORÍAS DISPONIBLES
+export async function getAvalibleCategories() {
+  try {
+    const products = await productsModel.find().toArray();
+
+    const grouped = Object.groupBy(products, (prod) => prod.category);
+
+    const categories = Object.keys(grouped);
+
+    return {
+      error: false,
+      categories,
+    };
+  } catch {
+    return {
+      error: true,
+      categories: [],
+    };
+  }
 }
