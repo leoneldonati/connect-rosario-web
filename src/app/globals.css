@@ -1,5 +1,5 @@
 @import "tailwindcss";
-
+@import "tailwindcss-animated";
 @theme {
   --color-brand-1: #1e90ff;
 }
@@ -8,6 +8,10 @@ input:focus-within {
   outline: none;
 }
 
+label,
+input {
+  width: 100%;
+}
 button {
   cursor: pointer;
 }

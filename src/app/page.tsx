@@ -2,18 +2,25 @@ import mock from "@mock.json";
 import CarouselAuto from "../components/ui/carousel-auto";
 import ProductCard from "../components/shared/product-card";
 import NewIncomes from "../components/ui/new-incomes";
-import { isWholesale } from "@actions/cookies";
-import { IconShoppingCartDiscount } from "@tabler/icons-react";
+import { isWholesale, isAdmin as checkAdmin } from "@actions/cookies";
+import {
+  IconPlus,
+  IconSettingsCheck,
+  IconShoppingCartDiscount,
+} from "@tabler/icons-react";
 import CloseWholesaleButton from "@components/ui/close-wholesale-session";
+import CloseAdminButton from "@components/ui/close-admin-session";
+import Link from "next/link";
 export default async function Home() {
   const sortedByGroup = Object.groupBy(mock, (prod) => prod.category);
   const arrayGrouped = Object.entries(sortedByGroup).map(
     ([category, products]) => ({ category, products })
   );
   const hasWholesale = await isWholesale();
-
+  const isAdmin = await checkAdmin();
   return (
     <section className="flex flex-col gap-4 ">
+      {/* MODO MAYORISTA */}
       {hasWholesale && (
         <div className="p-2 rounded-md bg-brand-1/20 border-2 mt-4 border-brand-1 text-brand-1 flex flex-col sm:flex-row items-center justify-center gap-5">
           <p className="flex items-center gap-1 text-xl">
@@ -23,9 +30,38 @@ export default async function Home() {
           <CloseWholesaleButton />
         </div>
       )}
-      <CarouselAuto />
 
-      <NewIncomes products={mock} limit={15} isWholesale={hasWholesale} />
+      {/* MODO ADMINISTRADOR */}
+      {isAdmin && (
+        <div className="p-2 rounded-md  border-2 mt-4 border-brand-1 text-brand-1  flex flex-col gap-2">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-5">
+            <p className="flex items-center gap-1 text-xl">
+              ¡Bienvenido Nicolás! <IconSettingsCheck />
+            </p>
+
+            <CloseAdminButton />
+          </div>
+
+          <div className="flex  justify-between">
+            <p className="flex items-center gap-1">
+              <strong>{mock.length}</strong>
+              productos
+            </p>
+
+            <Link
+              href="/product/add"
+              className="bg-brand-1/20 p-2 rounded text-brand-1 flex items-center gap-1"
+            >
+              <IconPlus /> Añadir un producto
+            </Link>
+          </div>
+        </div>
+      )}
+      {!isAdmin && <CarouselAuto />}
+
+      {!isAdmin && (
+        <NewIncomes products={mock} limit={15} isWholesale={hasWholesale} />
+      )}
 
       {arrayGrouped.map(({ category, products }) => (
         <article key={category}>
@@ -38,6 +74,7 @@ export default async function Home() {
                 prod={prod}
                 key={prod._id}
                 isWholesale={hasWholesale}
+                isAdmin={isAdmin}
               />
             ))}
           </div>

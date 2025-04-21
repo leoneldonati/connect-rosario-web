@@ -7,13 +7,12 @@ import { useState } from "react";
 import { IconMenu4, IconUser } from "@tabler/icons-react";
 export default function Header() {
   const [opened, setOpened] = useState(false);
+
   return (
     <header className="sticky top-0 z-50 w-full flex flex-row items-center justify-between bg-brand-1 p-4">
       <Link href="/">
         <Logo />
       </Link>
-
-      <AsideMenu opened={opened} close={() => setOpened(false)} />
 
       <div className="flex gap-2 items-center">
         <Link href="/login" className="text-white bg-brand-1/30">
@@ -27,6 +26,7 @@ export default function Header() {
           <IconMenu4 />
         </button>
       </div>
+      <AsideMenu opened={opened} close={() => setOpened(false)} />
     </header>
   );
 }

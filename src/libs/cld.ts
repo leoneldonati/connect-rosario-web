@@ -12,7 +12,9 @@ export async function uploadFile(buffer: ArrayBuffer, fileType: string) {
   const dataUri = `data:${fileType};base64,${base64String}`;
 
   try {
-    const result = await cld.uploader.upload(dataUri, { folder: "dmsrl" });
+    const result = await cld.uploader.upload(dataUri, {
+      folder: "connect-rosario",
+    });
     return {
       ok: true,
       uploadedAsset: {
