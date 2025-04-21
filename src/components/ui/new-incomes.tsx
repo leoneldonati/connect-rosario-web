@@ -7,9 +7,15 @@ interface Props {
   products: Product[];
   limit: number;
   isWholesale: boolean;
+  isAdmin: boolean;
 }
 
-export default function NewIncomes({ products, limit, isWholesale }: Props) {
+export default function NewIncomes({
+  products,
+  limit,
+  isWholesale,
+  isAdmin,
+}: Props) {
   const sortedProducts = [...products].sort(
     (a, b) =>
       new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
@@ -45,7 +51,11 @@ export default function NewIncomes({ products, limit, isWholesale }: Props) {
             {slicedProducts.length > 0 ? (
               slicedProducts.map((prod) => (
                 <div key={prod._id} className="flex-shrink-0">
-                  <ProductCard prod={prod} isWholesale={isWholesale} />
+                  <ProductCard
+                    prod={prod}
+                    isWholesale={isWholesale}
+                    isAdmin={isAdmin}
+                  />
                 </div>
               ))
             ) : (

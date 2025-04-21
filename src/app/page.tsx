@@ -66,6 +66,7 @@ export default async function Home() {
           products={products ?? []}
           limit={15}
           isWholesale={hasWholesale}
+          isAdmin={isAdmin}
         />
       )}
 
