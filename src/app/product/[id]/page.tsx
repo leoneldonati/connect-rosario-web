@@ -1,5 +1,3 @@
-import mock from "@mock.json";
-import logo from "@assets/default.png";
 import AddCartButton from "@components/ui/add-cart-button";
 import { PHONE_NUMBER } from "@constants";
 import RelatedProducts from "@components/ui/related-products";
@@ -10,6 +8,7 @@ import Counter from "@components/ui/counter";
 import type { Metadata } from "next";
 import { IconBrandWhatsappFilled } from "@tabler/icons-react";
 import ShareButtons from "@components/ui/share-prod-buttons";
+import { getById } from "@actions/products";
 
 export async function generateMetadata({
   params,
@@ -17,7 +16,7 @@ export async function generateMetadata({
   params: Promise<{ id: string }>;
 }): Promise<Metadata> {
   const { id } = await params;
-  const product = mock.find((prod) => prod._id === id) as Product;
+  const { product } = await getById(id);
 
   if (!product) {
     return {
@@ -41,13 +40,11 @@ export async function generateMetadata({
       description: `Compra ${product.title} por $${
         product.retail_price
       } en Connect Rosario. ${product.description.slice(0, 100)}...`,
-      url: `https://www.connectrosario.com/products/${product._id}`, // Reemplaza con tu dominio real
+      url: `https://www.connectrosario.com/products/${product._id}`,
       siteName: "Connect Rosario",
       images: [
         {
-          url:
-            product.image_url ||
-            "https://www.connectrosario.com/images/default-product.jpg", // Usa la imagen del producto o una por defecto
+          url: product.image?.secureUrl || "",
           width: 1200,
           height: 630,
           alt: `Imagen de ${product.title}`,
@@ -62,10 +59,7 @@ export async function generateMetadata({
       description: `Compra ${product.title} por $${
         product.retail_price
       } en Connect Rosario. ${product.description.slice(0, 100)}...`,
-      images: [
-        product.image_url ||
-          "https://www.connectrosario.com/images/default-product.jpg",
-      ],
+      images: [product.image?.secureUrl || ""],
     },
   };
 }
@@ -76,8 +70,7 @@ export default async function Page({
 }) {
   const { id } = await params;
 
-  const product = mock.find((prod) => prod._id === id);
-  // const product = await getProductById(id).catch((err) => console.log(err));
+  const { product } = await getById(id);
   const hasWholesale = await isWholesale();
   const price = hasWholesale ? product?.wholesale_price : product?.retail_price;
 
@@ -89,7 +82,7 @@ export default async function Page({
     <section className="flex flex-col gap-4 p-2 max-w-lg w-full mx-auto md:max-w-full md:mx-0">
       <div className="w-full flex md:flex-row flex-col gap-4 items-center px-2">
         <ViewTransition name={`image-${product?._id}`}>
-          <ImageScalable image={logo} />
+          <ImageScalable image={product?.image?.secureUrl ?? ""} />
         </ViewTransition>
 
         <div className="w-full flex flex-col gap-4">
@@ -124,11 +117,7 @@ export default async function Page({
         <p>{product?.extra_info}</p>
       </div>
 
-      <RelatedProducts
-        productId={product?._id ?? ""}
-        category={product?.category ?? ""}
-        isWholesale={hasWholesale}
-      />
+      <RelatedProducts category={product?.category ?? ""} />
     </section>
   );
 }

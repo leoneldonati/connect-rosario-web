@@ -1,4 +1,3 @@
-import mock from "@mock.json";
 import CarouselAuto from "../components/ui/carousel-auto";
 import ProductCard from "../components/shared/product-card";
 import NewIncomes from "../components/ui/new-incomes";
@@ -11,13 +10,16 @@ import {
 import CloseWholesaleButton from "@components/ui/close-wholesale-session";
 import CloseAdminButton from "@components/ui/close-admin-session";
 import Link from "next/link";
+import { getAll } from "@actions/products";
 export default async function Home() {
-  const sortedByGroup = Object.groupBy(mock, (prod) => prod.category);
+  const { products } = await getAll();
+  const sortedByGroup = Object.groupBy(products ?? [], (prod) => prod.category);
   const arrayGrouped = Object.entries(sortedByGroup).map(
     ([category, products]) => ({ category, products })
   );
   const hasWholesale = await isWholesale();
   const isAdmin = await checkAdmin();
+
   return (
     <section className="flex flex-col gap-4 ">
       {/* MODO MAYORISTA */}
@@ -44,7 +46,7 @@ export default async function Home() {
 
           <div className="flex  justify-between">
             <p className="flex items-center gap-1">
-              <strong>{mock.length}</strong>
+              <strong>{products?.length}</strong>
               productos
             </p>
 
@@ -60,7 +62,11 @@ export default async function Home() {
       {!isAdmin && <CarouselAuto />}
 
       {!isAdmin && (
-        <NewIncomes products={mock} limit={15} isWholesale={hasWholesale} />
+        <NewIncomes
+          products={products ?? []}
+          limit={15}
+          isWholesale={hasWholesale}
+        />
       )}
 
       {arrayGrouped.map(({ category, products }) => (
@@ -73,8 +79,8 @@ export default async function Home() {
               <ProductCard
                 prod={prod}
                 key={prod._id}
-                isWholesale={hasWholesale}
                 isAdmin={isAdmin}
+                isWholesale={hasWholesale}
               />
             ))}
           </div>

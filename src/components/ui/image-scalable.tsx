@@ -1,9 +1,9 @@
 "use client";
-import Image, { type StaticImageData } from "next/image";
+import Image from "next/image";
 import React, { useRef, useEffect } from "react";
 
 interface Props {
-  image: StaticImageData;
+  image: string;
 }
 const ImageScalable = ({ image }: Props) => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -45,6 +45,8 @@ const ImageScalable = ({ image }: Props) => {
       <Image
         src={image}
         alt=""
+        width={1920}
+        height={1080}
         className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-150"
         ref={imgRef}
       />

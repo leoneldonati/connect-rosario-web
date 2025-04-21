@@ -8,7 +8,10 @@ interface Product {
   created_at: Date;
   category: string;
   in_stock: boolean;
-  image_url?: string;
+  image?: {
+    secureUrl: string;
+    publicId: string;
+  };
 }
 
 type ProductWithoutId = Omit<Product, "_id">;

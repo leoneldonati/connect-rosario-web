@@ -4,7 +4,65 @@ import { productsModel } from "@db";
 import { uploadFile } from "@libs/cld";
 import { convertFile } from "@libs/sharp";
 import { productSchema } from "@libs/zod";
+import { ObjectId } from "mongodb";
 
+// OBTENER TODOS
+export async function getAll(limit = 100) {
+  try {
+    const products = await productsModel.find({}).limit(limit).toArray();
+
+    return {
+      error: false,
+      products: products.map((prod) => ({
+        ...prod,
+        _id: prod._id.toString(),
+      })) as Product[],
+    };
+  } catch {
+    return {
+      error: true,
+      products: null,
+    };
+  }
+}
+
+// OBTENER POR _id
+export async function getById(_id: string) {
+  try {
+    const product = await productsModel.findOne({ _id: new ObjectId(_id) });
+    if (!product) return { error: true, product: null };
+
+    return {
+      error: false,
+      product: {
+        ...product,
+        _id: product._id.toString(),
+      } as unknown as Product,
+    };
+  } catch {
+    return { error: true, product: null };
+  }
+}
+// OBTENER POR CATEGORIA
+export async function getByCategory(category: string) {
+  try {
+    const relatedProducts = await productsModel.find({ category }).toArray();
+
+    return {
+      error: false,
+      products: relatedProducts.map((prod) => ({
+        ...prod,
+        _id: prod._id.toString(),
+      })) as Product[],
+    };
+  } catch {
+    return {
+      error: true,
+      products: null,
+    };
+  }
+}
+// AGREGAR UNO
 export async function insertOne(formState: unknown, formData: FormData) {
   const { title, image, category, retail_price, wholesale_price, description } =
     Object.fromEntries(formData);
@@ -55,10 +113,14 @@ export async function insertOne(formState: unknown, formData: FormData) {
       message: "Error al intentar subir el archivo optimizado",
     };
 
+  const { publicId, secureUrl } = uploadedAsset;
   const newProduct: ProductWithoutId = {
     title: title.toString(),
     category: category.toString(),
-    image_url: uploadedAsset.secureUrl,
+    image: {
+      secureUrl,
+      publicId,
+    },
     created_at: new Date(),
     wholesale_price: Number(wholesale_price),
     retail_price: Number(retail_price),
@@ -76,5 +138,14 @@ export async function insertOne(formState: unknown, formData: FormData) {
       ...newProduct,
       _id: insertedId.toString(),
     } as Product,
+  };
+}
+
+// BORRAR UNO
+export async function deleteOne(formState: unknown, id: string) {
+  await productsModel.findOneAndDelete({ _id: new ObjectId(id) });
+
+  return {
+    error: false,
   };
 }

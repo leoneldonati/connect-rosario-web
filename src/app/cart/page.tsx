@@ -6,13 +6,15 @@ import createMsg from "@utils/msg";
 import ProductCard from "@components/shared/product-card";
 import { IconTrashFilled } from "@tabler/icons-react";
 import { useEffect, useState } from "react";
-import { isWholesale } from "@actions/cookies";
+import { isAdmin, isWholesale } from "@actions/cookies";
 
 export default function Cart() {
   const { list, getLength, getTotal, quiteOne } = useCartStore();
   const [wholesale, setWholesale] = useState(false);
+  const [admin, setAdmin] = useState(false);
   useEffect(() => {
     isWholesale().then((value) => setWholesale(value));
+    isAdmin().then((value) => setAdmin(value));
   }, []);
   return (
     <section className="flex flex-col gap-5 py-4">
@@ -46,7 +48,11 @@ export default function Cart() {
             >
               <IconTrashFilled />
             </button>
-            <ProductCard prod={product} isWholesale={wholesale} />
+            <ProductCard
+              prod={product}
+              isWholesale={wholesale}
+              isAdmin={admin}
+            />
             <strong>Cantidad: {product.quantity}</strong>
           </div>
         ))}

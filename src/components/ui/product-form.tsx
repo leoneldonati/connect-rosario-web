@@ -6,9 +6,14 @@ import Image from "next/image";
 import { type ChangeEvent, useActionState, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
-export default function ProductForm() {
+interface Props {
+  payload?: Product;
+}
+export default function ProductForm({ payload }: Props) {
   // ARCHIVO A SUBIR
-  const [temporalUrl, setTemporalUrl] = useState("");
+  const [temporalUrl, setTemporalUrl] = useState(
+    payload?.image?.secureUrl ?? ""
+  );
   const handleChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
 
@@ -31,6 +36,7 @@ export default function ProductForm() {
   useEffect(() => {
     if (state && state.error) {
       toast.error(state.message);
+      setTemporalUrl("");
     }
     if (state && !state.error) {
       toast.success(state.message);
@@ -62,7 +68,6 @@ export default function ProductForm() {
           hidden
           accept="image/*"
           name="image"
-          required
           aria-label="Sube una foto del producto"
         />
 
@@ -85,6 +90,7 @@ export default function ProductForm() {
         <input
           type="text"
           placeholder="Ingresa el título del producto"
+          defaultValue={payload?.title}
           id="title"
           name="title"
           className="p-2 outline outline-brand-1 rounded"
@@ -97,6 +103,7 @@ export default function ProductForm() {
           <input
             type="number"
             placeholder="Ingresa precio minorista $"
+            defaultValue={payload?.retail_price}
             id="retail_price"
             name="retail_price"
             min={0}
@@ -112,6 +119,7 @@ export default function ProductForm() {
             placeholder="Ingresa precio mayorista $"
             id="wholesale_price"
             name="wholesale_price"
+            defaultValue={payload?.wholesale_price}
             min={0}
             step={0}
             className="p-2 outline outline-brand-1 rounded"
@@ -128,6 +136,7 @@ export default function ProductForm() {
           id="category"
           name="category"
           className="p-2 outline outline-brand-1 rounded"
+          defaultValue={payload?.category}
           required
         />
       </label>
@@ -135,6 +144,7 @@ export default function ProductForm() {
         Descripción
         <textarea
           className="p-2 outline outline-brand-1 rounded resize-none min-h-20 h-full"
+          defaultValue={payload?.description}
           id="description"
           name="description"
           placeholder="Aquí describe tu producto..."
@@ -147,11 +157,7 @@ export default function ProductForm() {
         className="bg-brand-1/20 px-4 py-2 rounded-md text-brand-1 font-bold flex items-center gap-1 justify-center"
       >
         {pending ? "Guardando..." : "Guardar"}{" "}
-        <IconLoader3
-          className={`${
-            !pending && "hidden"
-          } animate-wiggle-more animate-infinite`}
-        />
+        <IconLoader3 className={`${!pending && "hidden"} animate-spin`} />
       </button>
     </form>
   );
