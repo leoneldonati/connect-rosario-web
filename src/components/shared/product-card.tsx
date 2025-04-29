@@ -38,16 +38,18 @@ export default function ProductCard({ prod, isAdmin, isWholesale }: Props) {
           alt={prod.title}
         />
       </ViewTransition>
-      <strong className="whitespace-nowrap overflow-hidden text-ellipsis">
+      <p className="whitespace-nowrap overflow-hidden text-ellipsis">
         {prod.title}
-      </strong>
+      </p>
 
       <div className="flex items-center gap-1">
-        <strong className="text-xl text-green-500">${price}</strong>
+        <strong className="text-xl text-green-500">
+          ${price.toLocaleString("es-ar", { currency: "ARS" })}
+        </strong>
         {isWholesale ||
           (isAdmin && (
             <small className="text-black/60 line-through italic">
-              ${prod.retail_price}
+              ${prod.retail_price.toLocaleString("es-ar", { currency: "ARS" })}
             </small>
           ))}
       </div>

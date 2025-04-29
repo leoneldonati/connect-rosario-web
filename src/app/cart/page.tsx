@@ -23,7 +23,9 @@ export default function Cart() {
           <span className="text-brand-1 text-xl">{getLength()}</span> productos.
         </strong>
 
-        <p className="text-xl text-brand-1">${getTotal(wholesale)}</p>
+        <p className="text-xl text-brand-1">
+          ${getTotal(wholesale).toLocaleString("es-ar", { currency: "ARS" })}
+        </p>
         <a
           hidden={getLength() === 0}
           href={`https://api.whatsapp.com/send?phone=${PHONE_NUMBER}&text=${createMsg(
