@@ -1,14 +1,14 @@
 import AddCartButton from "@components/ui/add-cart-button";
-import { PHONE_NUMBER } from "@constants";
 import RelatedProducts from "@components/ui/related-products";
 import ImageScalable from "@components/ui/image-scalable";
+import Counter from "@components/ui/counter";
+import ShareButtons from "@components/ui/share-prod-buttons";
+import { CANNONICAL_URL, PHONE_NUMBER } from "@constants";
 import { unstable_ViewTransition as ViewTransition } from "react";
 import { isWholesale } from "@actions/cookies";
-import Counter from "@components/ui/counter";
-import type { Metadata } from "next";
 import { IconBrandWhatsappFilled } from "@tabler/icons-react";
-import ShareButtons from "@components/ui/share-prod-buttons";
 import { getById } from "@actions/products";
+import type { Metadata } from "next";
 
 export async function generateMetadata({
   params,
@@ -40,7 +40,7 @@ export async function generateMetadata({
       description: `Compra ${product.title} por $${
         product.retail_price
       } en Connect Rosario. ${product.description.slice(0, 100)}...`,
-      url: `https://www.connectrosario.com/products/${product._id}`,
+      url: `${CANNONICAL_URL}/products/${product._id}`,
       siteName: "Connect Rosario",
       images: [
         {
