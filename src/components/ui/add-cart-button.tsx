@@ -19,7 +19,7 @@ export default function AddCartButton({ product }: Props) {
   return (
     <button
       onClick={handleClick}
-      className="bg-blue-500 text-white font-bold px-4 py-2 rounded-md flex items-center justify-center gap-1"
+      className="bg-brand-1 text-white font-bold px-4 py-2 rounded-md flex items-center justify-center gap-1 "
     >
       {findById(product._id) ? (
         <span className="flex items-center gap-1">

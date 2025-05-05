@@ -14,7 +14,7 @@ export default async function PreHeader() {
         )}
         {categories.map((category, index) => (
           <Link
-            className="truncated overflow-ellipsis text-nowrap font-bold bg-brand-1 text-white p-1 rounded"
+            className="truncated overflow-ellipsis text-nowrap font-bold bg-brand-1 text-white p-2 rounded uppercase"
             href={`/categories/${encodeURIComponent(category)}`}
             key={index}
           >

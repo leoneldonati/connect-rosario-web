@@ -1,6 +1,5 @@
-import CarouselAuto from "../components/ui/carousel-auto";
-import ProductCard from "../components/shared/product-card";
-import NewIncomes from "../components/ui/new-incomes";
+import CarouselAuto from "@components/ui/carousel-auto";
+import NewIncomes from "@components/ui/new-incomes";
 import { isWholesale, isAdmin as checkAdmin } from "@actions/cookies";
 import {
   IconPlus,
@@ -10,13 +9,9 @@ import {
 import CloseWholesaleButton from "@components/ui/close-wholesale-session";
 import CloseAdminButton from "@components/ui/close-admin-session";
 import Link from "next/link";
-import { getAll } from "@actions/products";
+import ProductsFeed from "@components/ui/products-feed";
+import ProductsCounter from "@components/admin/products-counter";
 export default async function Home() {
-  const { products } = await getAll();
-  const sortedByGroup = Object.groupBy(products ?? [], (prod) => prod.category);
-  const arrayGrouped = Object.entries(sortedByGroup).map(
-    ([category, products]) => ({ category, products })
-  );
   const hasWholesale = await isWholesale();
   const isAdmin = await checkAdmin();
 
@@ -46,13 +41,14 @@ export default async function Home() {
 
           <div className="flex  justify-between">
             <p className="flex items-center gap-1">
-              <strong>{products?.length}</strong>
+              <ProductsCounter />
               productos
             </p>
 
             <Link
               href="/product/add"
               className="bg-brand-1/20 p-2 rounded text-brand-1 flex items-center gap-1"
+              title="Añade un producto"
             >
               <IconPlus /> Añadir un producto
             </Link>
@@ -62,31 +58,10 @@ export default async function Home() {
       {!isAdmin && <CarouselAuto />}
 
       {!isAdmin && (
-        <NewIncomes
-          products={products ?? []}
-          limit={15}
-          isWholesale={hasWholesale}
-          isAdmin={isAdmin}
-        />
+        <NewIncomes limit={15} isWholesale={hasWholesale} isAdmin={isAdmin} />
       )}
 
-      {arrayGrouped.map(({ category, products }) => (
-        <article key={category}>
-          <h3 className="font-bold text-2xl text-brand-1 underline-offset-2 underline">
-            {category}
-          </h3>
-          <div className="grid lg:grid-cols-4 sm:grid-cols-2 md:grid-cols-3 grid-cols-1 max-w-[800px] mx-auto gap-3 px-2 py-3 place-items-center">
-            {products?.map((prod) => (
-              <ProductCard
-                prod={prod}
-                key={prod._id}
-                isAdmin={isAdmin}
-                isWholesale={hasWholesale}
-              />
-            ))}
-          </div>
-        </article>
-      ))}
+      <ProductsFeed isAdmin={isAdmin} hasWholesale={hasWholesale} />
     </section>
   );
 }

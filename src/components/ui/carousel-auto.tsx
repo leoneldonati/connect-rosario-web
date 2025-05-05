@@ -18,7 +18,7 @@ export default function CarouselAuto() {
     return () => clearInterval(timerId);
   }, []);
   return (
-    <picture className="overflow-hidden  relative flex">
+    <picture className="overflow-hidden  relative flex rounded-md">
       <div
         className="flex flex-row transition-transform w-full h-full"
         style={{

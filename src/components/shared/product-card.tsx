@@ -1,9 +1,8 @@
 "use client";
-import Link from "next/link";
 import Image from "next/image";
-import { unstable_ViewTransition as ViewTransition } from "react";
 import { IconPencil } from "@tabler/icons-react";
 import DeleteProductButton from "@components/ui/delete-product-button";
+import Link from "next/link";
 
 interface Props {
   prod: Product;
@@ -15,12 +14,16 @@ export default function ProductCard({ prod, isAdmin, isWholesale }: Props) {
   return (
     <Link
       href={`/product/${prod._id}`}
-      key={prod._id}
-      className="max-w-[230px] w-full p-2 rounded-md shadow-md shadow-black/50 flex flex-col flex-shrink-0 justify-between"
+      title={`Ver ${prod.title}`}
+      className="max-w-[230px] w-full h-full p-2 rounded-md shadow-md shadow-black/50 flex flex-col flex-shrink-0 justify-between bg-white"
     >
       {isAdmin && (
         <div className="flex gap-2" onClick={(e) => e.stopPropagation()}>
-          <Link href={`/product/edit/${prod._id}`} className="text-brand-1">
+          <Link
+            href={`/product/edit/${prod._id}`}
+            title={`Editar ${prod.title}`}
+            className="text-brand-1"
+          >
             <IconPencil />
           </Link>
           <DeleteProductButton
@@ -30,20 +33,19 @@ export default function ProductCard({ prod, isAdmin, isWholesale }: Props) {
         </div>
       )}
 
-      <ViewTransition name={`image-${prod._id}`}>
-        <Image
-          src={prod.image?.secureUrl ?? ""}
-          width={1920}
-          height={1080}
-          alt={prod.title}
-        />
-      </ViewTransition>
+      <Image
+        src={prod.image?.secureUrl ?? ""}
+        width={1920}
+        height={1080}
+        alt={prod.title}
+        className="aspect-square object-center object-contain shadow shadow-black/60 rounded-md"
+      />
       <p className="whitespace-nowrap overflow-hidden text-ellipsis">
         {prod.title}
       </p>
 
       <div className="flex items-center gap-1">
-        <strong className="text-xl text-green-500">
+        <strong className="text-xl text-brand-1">
           ${price.toLocaleString("es-ar", { currency: "ARS" })}
         </strong>
         {isWholesale ||

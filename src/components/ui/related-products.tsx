@@ -1,29 +1,23 @@
 import { getByCategory } from "@actions/products";
-import ProductsCarousel from "./products-carousel";
-import { Suspense } from "react";
-import Skeleton from "react-loading-skeleton";
 import { isAdmin, isWholesale } from "@actions/cookies";
+import ProductsCarousel from "./products-carousel";
 
 interface Props {
   category: string;
 }
-export default function RelatedProducts({ category }: Props) {
-  const productsPromise = getByCategory(category);
-  const admin = isAdmin();
-  const wholesale = isWholesale();
+export default async function RelatedProducts({ category }: Props) {
+  const productsPromise = await getByCategory(category);
+  const admin = await isAdmin();
+  const wholesale = await isWholesale();
   return (
-    <section className="w-full border border-brand-1 p-3 rounded-md">
-      <h3 className="text-2xl font-bold text-brand-1">
-        Productos Relacionados
-      </h3>
+    <section className="w-full  p-3 rounded-md bg-brand-1">
+      <h3 className="text-2xl font-bold text-white">Productos Relacionados</h3>
 
-      <Suspense fallback={<Skeleton />}>
-        <ProductsCarousel
-          promise={productsPromise}
-          isAdmin={admin}
-          isWholesale={wholesale}
-        />
-      </Suspense>
+      <ProductsCarousel
+        isAdmin={admin}
+        isWholesale={wholesale}
+        products={productsPromise.products ?? []}
+      />
     </section>
   );
 }

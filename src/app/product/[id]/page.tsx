@@ -4,7 +4,6 @@ import ImageScalable from "@components/ui/image-scalable";
 import Counter from "@components/ui/counter";
 import ShareButtons from "@components/ui/share-prod-buttons";
 import { CANNONICAL_URL, PHONE_NUMBER } from "@constants";
-import { unstable_ViewTransition as ViewTransition } from "react";
 import { isWholesale } from "@actions/cookies";
 import { IconBrandWhatsappFilled } from "@tabler/icons-react";
 import { getById } from "@actions/products";
@@ -81,14 +80,17 @@ export default async function Page({
   return (
     <section className="flex flex-col gap-4 p-2 max-w-lg w-full mx-auto md:max-w-full md:mx-0">
       <div className="w-full flex md:flex-row flex-col gap-4 items-center px-2">
-        <ViewTransition name={`image-${product?._id}`}>
-          <ImageScalable image={product?.image?.secureUrl ?? ""} />
-        </ViewTransition>
-
+        <ImageScalable image={product?.image?.secureUrl ?? ""} />
         <div className="w-full flex flex-col gap-4">
           <p className="text-2xl font-bold text-balance">{product?.title}</p>
 
-          <strong className="text-4xl text-green-500">${price}</strong>
+          <strong className="text-4xl text-brand-1">
+            $
+            {price?.toLocaleString("es-ar", {
+              currency: "ARS",
+              currencySign: "standard",
+            })}
+          </strong>
           <div className="flex flex-col gap-2 w-full">
             <Counter prodId={product?._id ?? ""} />
             <AddCartButton product={product!} />
@@ -110,11 +112,13 @@ export default async function Page({
       <div className="border border-black/40 rounded-md p-4 w-full flex flex-col gap-4">
         <p className="text-xl underline">Descripción</p>
 
-        <strong>{product?.description}</strong>
+        <p className="text-brand-1 font-bold">{product?.description}</p>
 
-        <span className="text-xl underline ">Información extra</span>
+        <span className="text-xl underline">Información extra</span>
 
-        <p>{product?.extra_info}</p>
+        <p>
+          {product?.extra_info === "" ? "Sin información" : product?.extra_info}
+        </p>
       </div>
 
       <RelatedProducts category={product?.category ?? ""} />

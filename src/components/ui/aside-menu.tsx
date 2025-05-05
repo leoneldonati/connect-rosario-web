@@ -1,8 +1,8 @@
 "use client";
 import Logo from "../shared/logo";
 import Link from "next/link";
-import mock from "@mock.json";
 import { IconMenu4 } from "@tabler/icons-react";
+import { useProductStore } from "@store/products";
 
 export default function AsideMenu({
   opened,
@@ -11,7 +11,8 @@ export default function AsideMenu({
   opened: boolean;
   close: () => void;
 }) {
-  const grouped = Object.groupBy(mock, (prod) => prod.category);
+  const { list } = useProductStore();
+  const grouped = Object.groupBy(list, (prod) => prod.category);
   const categories = Object.keys(grouped);
 
   return (
