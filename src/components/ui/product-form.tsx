@@ -1,6 +1,7 @@
 "use client";
 
 import { insertOne } from "@actions/products";
+import { useProductStore } from "@store/products";
 import { IconCamera, IconLoader3, IconTrashFilled } from "@tabler/icons-react";
 import Image from "next/image";
 import { type ChangeEvent, useActionState, useEffect, useState } from "react";
@@ -10,6 +11,7 @@ interface Props {
   payload?: Product;
 }
 export default function ProductForm({ payload }: Props) {
+  const { addOne } = useProductStore();
   // ARCHIVO A SUBIR
   const [temporalUrl, setTemporalUrl] = useState(
     payload?.image?.secureUrl ?? ""
@@ -38,8 +40,9 @@ export default function ProductForm({ payload }: Props) {
       toast.error(state.message);
       setTemporalUrl("");
     }
-    if (state && !state.error) {
+    if (state && !state.error && state.insertedProduct) {
       toast.success(state.message);
+      addOne(state.insertedProduct);
     }
   }, [state]);
   return (
@@ -54,7 +57,10 @@ export default function ProductForm({ payload }: Props) {
         {temporalUrl && (
           <button
             type="button"
-            onClick={() => setTemporalUrl("")}
+            onClick={(e) => {
+              e.stopPropagation();
+              setTemporalUrl("");
+            }}
             className="text-white absolute top-2 right-2 z-10 bg-brand-1 p-1 rounded-full"
           >
             <IconTrashFilled />
@@ -80,7 +86,7 @@ export default function ProductForm({ payload }: Props) {
             alt="Imagen a subir"
             width={1920}
             height={1080}
-            className="aspect-video object-cover"
+            className="aspect-video object-contain"
           />
         )}
       </label>

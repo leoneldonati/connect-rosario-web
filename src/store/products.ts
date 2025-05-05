@@ -6,6 +6,7 @@ interface ProductStore {
   setList: (list: Product[]) => void;
   addOne: (product: Product) => void;
   addMultiple: (products: Product[]) => void;
+  deleteOne: (id: string) => void;
 }
 export const useProductStore = create(
   persist<ProductStore>(
@@ -27,6 +28,13 @@ export const useProductStore = create(
         const newList = [...prods, ...list];
 
         set({ list: newList });
+      },
+      deleteOne: (id) => {
+        const { list } = get();
+
+        const filteredList = list.filter((prod) => prod._id !== id);
+
+        set({ list: filteredList });
       },
     }),
     { name: "connect-products-store" }

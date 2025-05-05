@@ -11,10 +11,14 @@ import CloseAdminButton from "@components/ui/close-admin-session";
 import Link from "next/link";
 import ProductsFeed from "@components/ui/products-feed";
 import ProductsCounter from "@components/admin/products-counter";
+import { getAll } from "@actions/products";
+import { Suspense } from "react";
+import Skeleton from "react-loading-skeleton";
 export default async function Home() {
   const hasWholesale = await isWholesale();
   const isAdmin = await checkAdmin();
 
+  const products = getAll();
   return (
     <section className="flex flex-col gap-4 ">
       {/* MODO MAYORISTA */}
@@ -61,7 +65,13 @@ export default async function Home() {
         <NewIncomes limit={15} isWholesale={hasWholesale} isAdmin={isAdmin} />
       )}
 
-      <ProductsFeed isAdmin={isAdmin} hasWholesale={hasWholesale} />
+      <Suspense fallback={<Skeleton />}>
+        <ProductsFeed
+          products={products}
+          isAdmin={isAdmin}
+          hasWholesale={hasWholesale}
+        />
+      </Suspense>
     </section>
   );
 }

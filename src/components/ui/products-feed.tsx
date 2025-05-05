@@ -1,31 +1,34 @@
 "use client";
 
-import { getAll } from "@actions/products";
 import ProductCard from "@components/shared/product-card";
 import { useProductStore } from "@store/products";
 import Link from "next/link";
-import { useEffect } from "react";
+import { use, useMemo } from "react";
 
 export default function ProductsFeed({
   isAdmin,
   hasWholesale,
+  products,
 }: {
   isAdmin: boolean;
   hasWholesale: boolean;
+  products: Promise<{
+    error: boolean;
+    products: Product[] | null;
+  }>;
 }) {
   const { list, setList } = useProductStore();
-  const sortedByGroup = Object.groupBy(list, (prod) => prod.category);
-  const arrayGrouped = Object.entries(sortedByGroup).map(
-    ([category, products]) => ({ category, products })
-  );
+  const resolved = use(products);
 
-  useEffect(() => {
-    if (list.length === 0) {
-      getAll().then((resolved) => {
-        setList(resolved.products ?? []);
-      });
-    }
-  }, []);
+  const arrayGrouped = useMemo(() => {
+    if (list.length === 0) setList(resolved.products ?? []);
+    const sortedByGroup = Object.groupBy(list, (prod) => prod.category);
+    return Object.entries(sortedByGroup).map(([category, products]) => ({
+      category,
+      products,
+    }));
+  }, [list, resolved.products, setList]);
+
   return arrayGrouped.map(({ category, products }) => (
     <article key={category}>
       <Link

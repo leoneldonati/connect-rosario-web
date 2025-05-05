@@ -3,6 +3,7 @@ import Image from "next/image";
 import { IconPencil } from "@tabler/icons-react";
 import DeleteProductButton from "@components/ui/delete-product-button";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 
 interface Props {
   prod: Product;
@@ -15,20 +16,28 @@ export default function ProductCard({ prod, isAdmin, isWholesale }: Props) {
     <Link
       href={`/product/${prod._id}`}
       title={`Ver ${prod.title}`}
-      className="max-w-[230px] w-full h-full p-2 rounded-md shadow-md shadow-black/50 flex flex-col flex-shrink-0 justify-between bg-white"
+      className="max-w-[230px] w-full h-full p-2 rounded-md shadow-md shadow-black/50 flex flex-col gap-3 flex-shrink-0 justify-between bg-white"
+      onClick={(e) => {
+        if (isAdmin) {
+          e.preventDefault();
+        }
+      }}
     >
       {isAdmin && (
-        <div className="flex gap-2" onClick={(e) => e.stopPropagation()}>
-          <Link
-            href={`/product/edit/${prod._id}`}
+        <div className="flex gap-2">
+          <button
+            onClick={() => {
+              redirect(`/product/edit/${prod._id}`);
+            }}
             title={`Editar ${prod.title}`}
-            className="text-brand-1"
+            className="text-brand-1 flex justify-center p-2 rounded-full hover:bg-brand-1 hover:text-white transition-colors"
           >
             <IconPencil />
-          </Link>
+          </button>
           <DeleteProductButton
             id={prod._id}
             publicId={prod.image?.publicId ?? ""}
+            title={prod.title}
           />
         </div>
       )}
