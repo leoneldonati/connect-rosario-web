@@ -112,11 +112,13 @@ export default async function Page({
       <div className="border border-black/40 rounded-md p-4 w-full flex flex-col gap-4">
         <p className="text-xl underline">Descripción</p>
 
-        <p className="text-brand-1 font-bold">{product?.description}</p>
+        <p className="text-brand-1 font-bold whitespace-pre-wrap">
+          {product?.description}
+        </p>
 
         <span className="text-xl underline">Información extra</span>
 
-        <p>
+        <p className="whitespace-pre-wrap">
           {product?.extra_info === "" ? "Sin información" : product?.extra_info}
         </p>
       </div>

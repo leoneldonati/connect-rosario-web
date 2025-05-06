@@ -34,12 +34,13 @@ export default function ProductsFeed({
       <Link
         href={`/categories/${encodeURIComponent(category)}`}
         title={`Ver ${category}`}
+        aria-label={category}
       >
         <h3 className="font-bold text-2xl text-brand-1 underline-offset-2 capitalize">
           {category}
         </h3>
       </Link>
-      <div className="grid lg:grid-cols-4 sm:grid-cols-2 md:grid-cols-3 grid-cols-1 max-w-[800px] mx-auto gap-3 px-2 py-3 place-items-center">
+      <div className="grid  sm:grid-cols-2 md:grid-cols-3 grid-cols-1 max-w-[800px] mx-auto gap-3 px-2 py-3 place-items-center">
         {products?.map((prod) => (
           <ProductCard
             prod={prod}

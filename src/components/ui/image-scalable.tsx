@@ -39,7 +39,7 @@ const ImageScalable = ({ image }: Props) => {
 
   return (
     <div
-      className="relative overflow-hidden w-[550px] h-[350px] group shadow shadow-black/50 rounded"
+      className="relative overflow-hidden w-full h-auto group shadow shadow-black/50 rounded"
       ref={containerRef}
     >
       <Image
