@@ -3,7 +3,7 @@
 import ProductCard from "@components/shared/product-card";
 import { useProductStore } from "@store/products";
 import Link from "next/link";
-import { use, useMemo } from "react";
+import { useEffect, useMemo } from "react";
 
 export default function ProductsFeed({
   isAdmin,
@@ -12,23 +12,21 @@ export default function ProductsFeed({
 }: {
   isAdmin: boolean;
   hasWholesale: boolean;
-  products: Promise<{
-    error: boolean;
-    products: Product[] | null;
-  }>;
+  products: Product[];
 }) {
   const { list, setList } = useProductStore();
-  const resolved = use(products);
 
   const arrayGrouped = useMemo(() => {
-    if (list.length === 0) setList(resolved.products ?? []);
-    const sortedByGroup = Object.groupBy(list, (prod) => prod.category);
-    return Object.entries(sortedByGroup).map(([category, products]) => ({
+    const groupedObject = Object.groupBy(list, (item) => item.category);
+    return Object.entries(groupedObject).map(([category, products]) => ({
       category,
       products,
     }));
-  }, [list, resolved.products, setList]);
+  }, [list]);
 
+  useEffect(() => {
+    setList(products);
+  }, []);
   return arrayGrouped.map(({ category, products }) => (
     <article key={category}>
       <Link

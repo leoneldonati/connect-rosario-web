@@ -18,7 +18,7 @@ export default async function Home() {
   const hasWholesale = await isWholesale();
   const isAdmin = await checkAdmin();
 
-  const products = getAll();
+  const { products } = await getAll();
   return (
     <section className="flex flex-col gap-4 ">
       {/* MODO MAYORISTA */}
@@ -67,7 +67,7 @@ export default async function Home() {
 
       <Suspense fallback={<Skeleton />}>
         <ProductsFeed
-          products={products}
+          products={products ?? []}
           isAdmin={isAdmin}
           hasWholesale={hasWholesale}
         />
