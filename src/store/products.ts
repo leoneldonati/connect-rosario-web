@@ -18,9 +18,7 @@ export const useProductStore = create<ProductStore>((set, get) => ({
     set({ list: newList });
   },
   addMultiple: (prods) => {
-    const { list } = get();
-
-    const newList = [...prods, ...list];
+    const newList = [...prods];
 
     set({ list: newList });
   },

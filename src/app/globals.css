@@ -3,6 +3,8 @@
 @theme {
   --color-brand-1: #00008b;
   --color-wsp-brand: #1daa61;
+
+  --animate-move-bg: bgMove 5s ease-in-out infinite;
 }
 
 input:focus-within {
@@ -15,4 +17,16 @@ input {
 }
 button {
   cursor: pointer;
+}
+
+@keyframes bgMove {
+  0% {
+    background-color: var(--color-brand-1);
+  }
+  50% {
+    background-color: var(--color-indigo-500);
+  }
+  100% {
+    background-color: var(--color-brand-1);
+  }
 }

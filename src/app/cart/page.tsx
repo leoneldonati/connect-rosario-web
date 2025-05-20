@@ -38,12 +38,9 @@ export default function Cart() {
         </a>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 place-items-center gap-2">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 place-items-center gap-2">
         {list.map((product) => (
-          <div
-            key={product._id}
-            className="flex flex-col gap-2 rounded-md shadow shadow-brand-1 p-2"
-          >
+          <div key={product._id} className="flex flex-col gap-2 rounded-md p-2">
             <button
               onClick={() => quiteOne(product._id)}
               className="text-red-500"

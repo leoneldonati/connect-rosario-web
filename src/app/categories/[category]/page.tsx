@@ -16,21 +16,29 @@ export default async function Page({
 
   const hasAdmin = await isAdmin();
   return (
-    <section className="p-2 flex">
-      <div className="uppercase my-4">
-        <Link
-          href="/"
-          className="text-black/60 hover:text-black transition-colors"
-        >
-          Inicio
-        </Link>{" "}
-        / <strong>{decodedCategory}</strong>
-        <AsideCategoriesMenu />
+    <section className="p-2 flex flex-col">
+      <div className="flex w-full justify-between items-center">
+        <div className="uppercase my-4">
+          <Link
+            href="/"
+            className="text-black/60 hover:text-black transition-colors"
+          >
+            Inicio
+          </Link>{" "}
+          / <strong>{decodedCategory}</strong>
+        </div>
+        <p className="text-brand-1 font-semibold">
+          Mostrando {products?.length} resultados.
+        </p>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 place-items-center gap-2">
-        {products?.map((prod) => (
-          <ProductCard prod={prod} key={prod._id} isAdmin={hasAdmin} />
-        ))}
+
+      <div className="flex">
+        <AsideCategoriesMenu />
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 place-items-center gap-2">
+          {products?.map((prod) => (
+            <ProductCard prod={prod} key={prod._id} isAdmin={hasAdmin} />
+          ))}
+        </div>
       </div>
     </section>
   );

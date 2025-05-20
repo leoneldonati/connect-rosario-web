@@ -16,7 +16,7 @@ export default function NewIncomes({ limit, isAdmin }: Props) {
   const slicedProducts = sortedProducts.slice(0, limit);
 
   return (
-    <section className="w-full bg-brand-1 rounded-md p-3">
+    <section className="w-full animate-move-bg transition-colors duration-200 rounded-md p-3">
       <h3 className="text-2xl font-bold text-white">Nuevos Ingresos</h3>
 
       <ProductsCarousel isAdmin={isAdmin} products={slicedProducts} />

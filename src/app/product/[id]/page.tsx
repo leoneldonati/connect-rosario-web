@@ -78,10 +78,12 @@ export default async function Page({
   *${product?.title} : $${product?.retail_price}*
   `;
   return (
-    <section className="flex flex-col gap-4 p-2 max-w-lg w-full mx-auto md:max-w-full md:mx-0">
-      <div className="w-full flex md:flex-row flex-col gap-4 items-center px-2">
-        <ImageScalable image={product?.image?.secureUrl ?? ""} />
-        <div className="w-full flex flex-col gap-4">
+    <section className="flex flex-col items-center gap-4 p-2 max-w-lg w-full mx-auto md:max-w-full md:mx-0">
+      <div className=" flex md:flex-row flex-col gap-4 items-center px-2">
+        <div className="max-w-lg">
+          <ImageScalable image={product?.image?.secureUrl ?? ""} />
+        </div>
+        <div className="max-w-md w-full flex flex-col gap-4">
           <p className="text-2xl font-bold text-balance">{product?.title}</p>
 
           <strong className="text-4xl text-brand-1">

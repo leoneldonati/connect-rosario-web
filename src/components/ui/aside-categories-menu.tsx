@@ -60,7 +60,7 @@ export default function AsideCategoriesMenu() {
                     href={`/categories/${encodeURIComponent(
                       category
                     )}/${encodeURIComponent(sub)}`}
-                    className="transition-colors hover:text-orange-400"
+                    className="transition-colors hover:text-orange-400 uppercase"
                   >
                     {sub}
                   </Link>

@@ -6,7 +6,7 @@ import { IconUser } from "@tabler/icons-react";
 import SearchBar from "./ui/search-bar";
 export default function Header() {
   return (
-    <header className="sticky top-0 z-50 w-full flex flex-row items-center justify-between bg-brand-1 p-4">
+    <header className="sticky top-0 z-50 w-full flex flex-row items-center justify-between bg-gradient-to-tr from-brand-1 via-indigo-500 to-brand-1 p-4">
       <Link href="/">
         <Logo />
       </Link>

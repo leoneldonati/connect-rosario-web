@@ -2,7 +2,7 @@ import Logo from "./shared/logo";
 
 export default function PreFooter() {
   return (
-    <footer className="flex md:flex-row flex-col items-center gap-4 justify-around px-4 pt-8 pb-16 bg-brand-1">
+    <footer className="flex md:flex-row flex-col items-center gap-4 justify-around px-4 pt-8 pb-16 bg-gradient-to-br from-brand-1 via-indigo-500 to-brand-1">
       <Logo />
 
       <ul className="text-white">

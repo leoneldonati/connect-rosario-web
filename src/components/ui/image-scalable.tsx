@@ -45,9 +45,9 @@ const ImageScalable = ({ image }: Props) => {
       <Image
         src={image}
         alt=""
-        width={2000}
-        height={2000}
-        className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-200"
+        width={1000}
+        height={1000}
+        className="w-full h-full aspect-square object-cover transition-transform duration-300 group-hover:scale-200"
         ref={imgRef}
       />
     </div>
