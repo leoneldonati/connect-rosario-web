@@ -50,11 +50,7 @@ export default function Cart() {
             >
               <IconTrashFilled />
             </button>
-            <ProductCard
-              prod={product}
-              isWholesale={wholesale}
-              isAdmin={admin}
-            />
+            <ProductCard prod={product} isAdmin={admin} />
             <strong>Cantidad: {product.quantity}</strong>
           </div>
         ))}
