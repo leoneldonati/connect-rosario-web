@@ -5,6 +5,7 @@ import CartButton from "./ui/cart-button";
 import AsideMenu from "./ui/aside-menu";
 import { useState } from "react";
 import { IconMenu4, IconUser } from "@tabler/icons-react";
+import SearchBar from "./ui/search-bar";
 export default function Header() {
   const [opened, setOpened] = useState(false);
 
@@ -14,6 +15,7 @@ export default function Header() {
         <Logo />
       </Link>
 
+      <SearchBar />
       <div className="flex gap-2 items-center">
         <Link href="/login" className="text-white bg-brand-1/30">
           <IconUser />

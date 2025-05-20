@@ -19,7 +19,7 @@ export default async function Page({
       <h2 className="text-2xl font-bold text-center my-4 bg-brand-1 text-white w-fit mx-auto p-2 rounded capitalize">
         {decodedCategory}
       </h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 place-items-center">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 place-items-center gap-3">
         {products?.map((prod) => (
           <ProductCard
             prod={prod}

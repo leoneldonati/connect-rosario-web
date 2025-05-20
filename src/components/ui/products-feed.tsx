@@ -14,7 +14,7 @@ export default function ProductsFeed({
   hasWholesale: boolean;
   products: Product[];
 }) {
-  const { list, setList } = useProductStore();
+  const { list, addMultiple } = useProductStore();
 
   const arrayGrouped = useMemo(() => {
     const groupedObject = Object.groupBy(list, (item) => item.category);
@@ -25,7 +25,7 @@ export default function ProductsFeed({
   }, [list]);
 
   useEffect(() => {
-    setList(products);
+    addMultiple(products);
   }, []);
   return arrayGrouped.map(({ category, products }) => (
     <article key={category}>

@@ -7,6 +7,7 @@ interface Product {
   extra_info: string;
   created_at: Date;
   category: string;
+  sub_category: string;
   in_stock: boolean;
   image?: {
     secureUrl: string;

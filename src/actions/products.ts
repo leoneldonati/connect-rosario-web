@@ -63,9 +63,21 @@ export async function getByCategory(category: string) {
 }
 // AGREGAR UNO
 export async function insertOne(formState: unknown, formData: FormData) {
-  const { title, image, category, retail_price, wholesale_price, description } =
-    Object.fromEntries(formData);
+  const {
+    title,
+    image,
+    category,
+    retail_price,
+    wholesale_price,
+    description,
+    sub_category,
+  } = Object.fromEntries(formData);
 
+  // CAMPOS POR DEFECTO
+  const _id = formData.get("_id");
+  const default_image = formData.get("default_image");
+
+  // IMAGEN A SUBIR
   const file = image as File;
   const arrayBuffer = await file.arrayBuffer();
 
@@ -77,6 +89,7 @@ export async function insertOne(formState: unknown, formData: FormData) {
       retail_price: Number(retail_price),
       wholesale_price: Number(wholesale_price),
       description,
+      sub_category,
     });
   } catch (e) {
     if (e instanceof Error) {
@@ -89,53 +102,68 @@ export async function insertOne(formState: unknown, formData: FormData) {
       };
     }
   }
-  if (arrayBuffer.byteLength === 0)
+
+  console.log(default_image);
+  if (arrayBuffer.byteLength === 0 && default_image === null) {
     return {
       error: true,
       message: "Debes seleccionar una fotoproducto",
     };
-  // OPTIMIZAR Y SUBIR ARCHIVOS
-  const { buffer: convertedBuffer } = await convertFile(arrayBuffer, {
-    format: "avif",
-  });
+  }
 
-  if (!convertedBuffer)
-    return {
-      error: true,
-      message: "Error al intentar optimizar el archivo",
-    };
-  const { uploadedAsset } = await uploadFile(convertedBuffer, file.type);
+  let uploadedAsset = default_image
+    ? JSON.parse(default_image.toString())
+    : null;
 
-  if (!uploadedAsset)
-    return {
-      error: true,
-      message: "Error al intentar subir el archivo optimizado",
-    };
+  if (!default_image && arrayBuffer.byteLength < 0) {
+    // OPTIMIZAR Y SUBIR ARCHIVOS
+    const { buffer: convertedBuffer } = await convertFile(arrayBuffer, {
+      format: "avif",
+    });
 
-  const { publicId, secureUrl } = uploadedAsset;
+    if (!convertedBuffer)
+      return {
+        error: true,
+        message: "Error al intentar optimizar el archivo",
+      };
+    const { uploadedAsset: uploaded } = await uploadFile(
+      convertedBuffer,
+      file.type
+    );
+
+    if (!uploaded)
+      return {
+        error: true,
+        message: "Error al intentar subir el archivo optimizado",
+      };
+
+    uploadedAsset = uploaded;
+  }
   const newProduct: ProductWithoutId = {
     title: title.toString(),
     category: category.toString(),
-    image: {
-      secureUrl,
-      publicId,
-    },
+    image: uploadedAsset,
     created_at: new Date(),
     wholesale_price: Number(wholesale_price),
     retail_price: Number(retail_price),
     description: description.toString(),
     extra_info: "",
     in_stock: true,
+    sub_category: sub_category.toString(),
   };
 
-  const { insertedId } = await productsModel.insertOne(newProduct);
+  const { upsertedId } = await productsModel.updateOne(
+    { _id: new ObjectId(_id?.toString() ?? "") },
+    { $set: newProduct },
+    { upsert: true }
+  );
 
   return {
     error: false,
-    message: `¡${title} añadido!`,
+    message: `¡${title} ${_id ? "editado" : "añadido"}!`,
     insertedProduct: {
       ...newProduct,
-      _id: insertedId.toString(),
+      _id: upsertedId?.toString(),
     } as Product,
   };
 }

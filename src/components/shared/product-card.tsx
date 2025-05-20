@@ -16,7 +16,7 @@ export default function ProductCard({ prod, isAdmin, isWholesale }: Props) {
     <Link
       href={`/product/${prod._id}`}
       title={`Ver ${prod.title}`}
-      className="max-w-[230px] w-full h-full p-2 rounded-md shadow-md shadow-black/50 flex flex-col gap-3 flex-shrink-0 justify-between bg-white"
+      className="max-w-[230px] w-full h-full p-2 rounded-md  flex flex-col gap-3 flex-shrink-0 justify-between bg-white"
       onClick={(e) => {
         if (isAdmin) {
           e.preventDefault();
@@ -47,7 +47,7 @@ export default function ProductCard({ prod, isAdmin, isWholesale }: Props) {
         width={1920}
         height={1080}
         alt={prod.title}
-        className="aspect-square object-center object-contain shadow shadow-black/60 rounded-md"
+        className="aspect-square object-center object-contain shadow shadow-neutral-400 rounded-md"
       />
       <p className="whitespace-nowrap overflow-hidden text-ellipsis">
         {prod.title}

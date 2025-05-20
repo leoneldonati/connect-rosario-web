@@ -1,42 +1,42 @@
 import { create } from "zustand";
-import { persist } from "zustand/middleware";
 
 interface ProductStore {
   list: Product[];
-  setList: (list: Product[]) => void;
   addOne: (product: Product) => void;
   addMultiple: (products: Product[]) => void;
   deleteOne: (id: string) => void;
+  filterByName: (name: string) => void;
 }
-export const useProductStore = create(
-  persist<ProductStore>(
-    (set, get) => ({
-      list: [],
-      setList: (list) => {
-        set({ list });
-      },
-      addOne: (product) => {
-        const { list } = get();
+export const useProductStore = create<ProductStore>((set, get) => ({
+  list: [],
+  addOne: (product) => {
+    const { list } = get();
 
-        const newList = [product, ...list];
+    const newList = [product, ...list];
 
-        set({ list: newList });
-      },
-      addMultiple: (prods) => {
-        const { list } = get();
+    set({ list: newList });
+  },
+  addMultiple: (prods) => {
+    const { list } = get();
 
-        const newList = [...prods, ...list];
+    const newList = [...prods, ...list];
 
-        set({ list: newList });
-      },
-      deleteOne: (id) => {
-        const { list } = get();
+    set({ list: newList });
+  },
+  deleteOne: (id) => {
+    const { list } = get();
 
-        const filteredList = list.filter((prod) => prod._id !== id);
+    const filteredList = list.filter((prod) => prod._id !== id);
 
-        set({ list: filteredList });
-      },
-    }),
-    { name: "connect-products-store" }
-  )
-);
+    set({ list: filteredList });
+  },
+  filterByName: (name) => {
+    const { list } = get();
+
+    const filtered = list.filter((item) =>
+      item.title.toLowerCase().includes(name.toLowerCase())
+    );
+
+    set({ list: name !== "" ? filtered : list });
+  },
+}));

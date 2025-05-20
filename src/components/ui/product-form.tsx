@@ -50,9 +50,10 @@ export default function ProductForm({ payload }: Props) {
       action={action}
       className="max-w-[400px] w-full p-2 rounded  flex flex-col gap-2"
     >
+      {payload?._id && <input hidden defaultValue={payload?._id} name="_id" />}
       <label
         htmlFor="image"
-        className="grid place-items-center aspect-video bg-brand-1/20 rounded max-w-full overflow-hidden shadow shadow-brand-1 relative"
+        className=" cursor-pointer grid place-items-center aspect-video bg-brand-1/20 rounded max-w-full overflow-hidden shadow shadow-brand-1 relative"
       >
         {temporalUrl && (
           <button
@@ -77,6 +78,13 @@ export default function ProductForm({ payload }: Props) {
           aria-label="Sube una foto del producto"
         />
 
+        {payload?.image && (
+          <input
+            defaultValue={JSON.stringify(payload?.image)}
+            hidden
+            name="default_image"
+          />
+        )}
         {!temporalUrl && (
           <IconCamera className="text-brand-1 size-12 animate-pulse" />
         )}
@@ -146,10 +154,23 @@ export default function ProductForm({ payload }: Props) {
           required
         />
       </label>
+
+      <label htmlFor="sub_category" className="flex flex-col text-brand-1">
+        Sub Categoría
+        <input
+          type="text"
+          placeholder="Ingresa la subcategoria del producto"
+          id="sub_category"
+          name="sub_category"
+          className="p-2 outline outline-brand-1 rounded"
+          defaultValue={payload?.sub_category}
+          required
+        />
+      </label>
       <label htmlFor="description" className="flex flex-col text-brand-1">
         Descripción
         <textarea
-          className="p-2 outline outline-brand-1 rounded resize-none min-h-20 h-full"
+          className="p-2 outline outline-brand-1 rounded resize-none min-h-40 h-full"
           defaultValue={payload?.description}
           id="description"
           name="description"

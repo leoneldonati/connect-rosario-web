@@ -39,15 +39,15 @@ const ImageScalable = ({ image }: Props) => {
 
   return (
     <div
-      className="relative overflow-hidden w-full h-auto group shadow shadow-black/50 rounded"
+      className="relative overflow-hidden  group  rounded"
       ref={containerRef}
     >
       <Image
         src={image}
         alt=""
-        width={1920}
-        height={1080}
-        className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-150"
+        width={2000}
+        height={2000}
+        className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-200"
         ref={imgRef}
       />
     </div>
