@@ -9,7 +9,7 @@ import { type FormEvent, useState, type ChangeEvent } from "react";
 export default function SearchBar() {
   const [searching, setSearching] = useState(false);
   const [filteredList, setFilteredList] = useState<Product[]>([]);
-  const { list, filterByName } = useProductStore();
+  const { list } = useProductStore();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setSearching(true);
@@ -33,8 +33,6 @@ export default function SearchBar() {
     const searchValue = new FormData(e.currentTarget).get("search");
 
     if (!searchValue) return;
-
-    filterByName(searchValue.toString());
   };
   return (
     <div className="relative max-w-[300px] w-full">

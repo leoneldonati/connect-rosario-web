@@ -8,15 +8,13 @@ import { redirect } from "next/navigation";
 interface Props {
   prod: Product;
   isAdmin: boolean;
-  isWholesale: boolean;
 }
-export default function ProductCard({ prod, isAdmin, isWholesale }: Props) {
-  const price = isWholesale ? prod.wholesale_price : prod.retail_price;
+export default function ProductCard({ prod, isAdmin }: Props) {
   return (
     <Link
       href={`/product/${prod._id}`}
       title={`Ver ${prod.title}`}
-      className="max-w-[230px] w-full h-full p-2 rounded-md  flex flex-col gap-3 flex-shrink-0 justify-between bg-white"
+      className="max-w-[230px] w-full h-full p-2 rounded-md  flex flex-col gap-3 flex-shrink-0 bg-white"
       onClick={(e) => {
         if (isAdmin) {
           e.preventDefault();
@@ -47,23 +45,11 @@ export default function ProductCard({ prod, isAdmin, isWholesale }: Props) {
         width={1920}
         height={1080}
         alt={prod.title}
-        className="aspect-square object-center object-contain shadow shadow-neutral-400 rounded-md"
+        className="aspect-square object-center object-contain outline-1 outline-neutral-200"
       />
-      <p className="whitespace-nowrap overflow-hidden text-ellipsis">
+      <p className="text-sm font-semibold transition-colors hover:text-orange-400">
         {prod.title}
       </p>
-
-      <div className="flex items-center gap-1">
-        <strong className="text-xl text-brand-1">
-          ${price.toLocaleString("es-ar", { currency: "ARS" })}
-        </strong>
-        {isWholesale ||
-          (isAdmin && (
-            <small className="text-black/60 line-through italic">
-              ${prod.retail_price.toLocaleString("es-ar", { currency: "ARS" })}
-            </small>
-          ))}
-      </div>
     </Link>
   );
 }

@@ -2,13 +2,9 @@
 import Link from "next/link";
 import Logo from "./shared/logo";
 import CartButton from "./ui/cart-button";
-import AsideMenu from "./ui/aside-menu";
-import { useState } from "react";
-import { IconMenu4, IconUser } from "@tabler/icons-react";
+import { IconUser } from "@tabler/icons-react";
 import SearchBar from "./ui/search-bar";
 export default function Header() {
-  const [opened, setOpened] = useState(false);
-
   return (
     <header className="sticky top-0 z-50 w-full flex flex-row items-center justify-between bg-brand-1 p-4">
       <Link href="/">
@@ -21,14 +17,7 @@ export default function Header() {
           <IconUser />
         </Link>
         <CartButton />
-        <button
-          onClick={() => setOpened(true)}
-          className="bg-white md:hidden inline-block rounded p-1 transition-transform active:scale-95"
-        >
-          <IconMenu4 />
-        </button>
       </div>
-      <AsideMenu opened={opened} close={() => setOpened(false)} />
     </header>
   );
 }

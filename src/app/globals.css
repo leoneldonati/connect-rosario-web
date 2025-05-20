@@ -2,6 +2,7 @@
 @import "tailwindcss-animated";
 @theme {
   --color-brand-1: #00008b;
+  --color-wsp-brand: #1daa61;
 }
 
 input:focus-within {

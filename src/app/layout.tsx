@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Roboto } from "next/font/google";
 import "./globals.css";
 import Header from "@components/header";
 import PreHeader from "@components/pre-header";
@@ -7,13 +7,9 @@ import ContactButton from "@components/shared/contact-button";
 import PreFooter from "@components/pre-footer";
 import { ToastContainer } from "react-toastify";
 import { CANNONICAL_URL } from "@constants";
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+import ProductsLoader from "@components/shared/products-loader";
+import { getAll } from "@actions/products";
+const roboto = Roboto({
   subsets: ["latin"],
 });
 
@@ -48,19 +44,21 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const { products } = await getAll();
+
   return (
     <html lang="es">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased relative flex flex-col min-h-screen max-w-6xl mx-auto`}
+        className={`${roboto.className}  antialiased relative flex flex-col min-h-screen max-w-7xl mx-auto`}
       >
         <Header />
         <PreHeader />
-        <main className="overflow-hidden max-w-3xl w-full mx-auto flex flex-col flex-grow px-2">
+        <main className="overflow-hidden  w-full mx-auto flex flex-col flex-grow px-2">
           {children}
         </main>
 
@@ -80,6 +78,10 @@ export default function RootLayout({
           draggable
           pauseOnHover
         />
+
+        {/* LOADER */}
+
+        <ProductsLoader products={products ?? []} />
       </body>
     </html>
   );

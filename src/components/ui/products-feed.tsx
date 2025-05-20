@@ -3,18 +3,10 @@
 import ProductCard from "@components/shared/product-card";
 import { useProductStore } from "@store/products";
 import Link from "next/link";
-import { useEffect, useMemo } from "react";
+import { useMemo } from "react";
 
-export default function ProductsFeed({
-  isAdmin,
-  hasWholesale,
-  products,
-}: {
-  isAdmin: boolean;
-  hasWholesale: boolean;
-  products: Product[];
-}) {
-  const { list, addMultiple } = useProductStore();
+export default function ProductsFeed({ isAdmin }: { isAdmin: boolean }) {
+  const { list } = useProductStore();
 
   const arrayGrouped = useMemo(() => {
     const groupedObject = Object.groupBy(list, (item) => item.category);
@@ -24,9 +16,6 @@ export default function ProductsFeed({
     }));
   }, [list]);
 
-  useEffect(() => {
-    addMultiple(products);
-  }, []);
   return arrayGrouped.map(({ category, products }) => (
     <article key={category}>
       <Link
@@ -40,12 +29,7 @@ export default function ProductsFeed({
       </Link>
       <div className="grid  sm:grid-cols-2 md:grid-cols-3 grid-cols-1 max-w-[800px] mx-auto gap-3 px-2 py-3 place-items-center">
         {products?.map((prod) => (
-          <ProductCard
-            prod={prod}
-            key={prod._id}
-            isAdmin={isAdmin}
-            isWholesale={hasWholesale}
-          />
+          <ProductCard prod={prod} key={prod._id} isAdmin={isAdmin} />
         ))}
       </div>
     </article>

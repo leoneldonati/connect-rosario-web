@@ -1,6 +1,8 @@
-import { isAdmin, isWholesale } from "@actions/cookies";
+import { isAdmin } from "@actions/cookies";
 import { getByCategory } from "@actions/products";
 import ProductCard from "@components/shared/product-card";
+import AsideCategoriesMenu from "@components/ui/aside-categories-menu";
+import Link from "next/link";
 export default async function Page({
   params,
 }: {
@@ -12,21 +14,22 @@ export default async function Page({
 
   const { products } = await getByCategory(category);
 
-  const hasWholesale = await isWholesale();
   const hasAdmin = await isAdmin();
   return (
-    <section className="p-2">
-      <h2 className="text-2xl font-bold text-center my-4 bg-brand-1 text-white w-fit mx-auto p-2 rounded capitalize">
-        {decodedCategory}
-      </h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 place-items-center gap-3">
+    <section className="p-2 flex">
+      <div className="uppercase my-4">
+        <Link
+          href="/"
+          className="text-black/60 hover:text-black transition-colors"
+        >
+          Inicio
+        </Link>{" "}
+        / <strong>{decodedCategory}</strong>
+        <AsideCategoriesMenu />
+      </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 place-items-center gap-2">
         {products?.map((prod) => (
-          <ProductCard
-            prod={prod}
-            key={prod._id}
-            isWholesale={hasWholesale}
-            isAdmin={hasAdmin}
-          />
+          <ProductCard prod={prod} key={prod._id} isAdmin={hasAdmin} />
         ))}
       </div>
     </section>

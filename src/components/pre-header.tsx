@@ -21,7 +21,7 @@ export default function PreHeader() {
   }, [list]);
 
   return (
-    <header className="hidden md:flex max-w-full flex-row shadow-xl shadow-black/10 sticky top-24 z-50 bg-white">
+    <header className="hidden md:flex max-w-full flex-row shadow-xl shadow-black/10 sticky top-24 z-50 bg-white mb-4">
       {categories.length === 0 && (
         <strong className="text-red-500">No hay categorías disponibles</strong>
       )}
