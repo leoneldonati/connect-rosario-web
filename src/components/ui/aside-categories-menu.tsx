@@ -8,7 +8,9 @@ import { useState } from "react";
 export default function AsideCategoriesMenu() {
   const { getAvaliblesCategories } = useProductStore();
   const avaliblesCategories = getAvaliblesCategories();
-  const [expandedCategories, setExpandedCategories] = useState({});
+  const [expandedCategories, setExpandedCategories] = useState<
+    Record<string, boolean>
+  >({});
 
   return (
     <aside className="flex flex-col mt-5">

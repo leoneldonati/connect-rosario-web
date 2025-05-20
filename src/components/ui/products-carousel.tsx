@@ -7,11 +7,9 @@ import { useEffect, useRef, useState } from "react";
 export default function ProductsCarousel({
   products,
   isAdmin,
-  isWholesale,
 }: {
   products: Product[];
   isAdmin: boolean;
-  isWholesale: boolean;
 }) {
   const [position, setPosition] = useState(0);
   const [numVisibleProducts, setNumVisibleProducts] = useState(1); // Valor inicial
@@ -65,11 +63,7 @@ export default function ProductsCarousel({
                   className="flex-shrink-0"
                   style={{ width: "230px" }} // Ancho fijo de la tarjeta
                 >
-                  <ProductCard
-                    prod={prod}
-                    isWholesale={isWholesale}
-                    isAdmin={isAdmin}
-                  />
+                  <ProductCard prod={prod} isAdmin={isAdmin} />
                 </div>
               ))
             ) : (

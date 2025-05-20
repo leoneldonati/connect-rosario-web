@@ -59,9 +59,7 @@ export default async function Home() {
       )}
       {!isAdmin && <CarouselAuto />}
 
-      {!isAdmin && (
-        <NewIncomes limit={15} isWholesale={hasWholesale} isAdmin={isAdmin} />
-      )}
+      {!isAdmin && <NewIncomes limit={15} isAdmin={isAdmin} />}
 
       <Suspense fallback={<Skeleton />}>
         <ProductsFeed isAdmin={isAdmin} />
