@@ -36,7 +36,7 @@ export default function SearchBar({ list }: Props) {
     if (!searchValue) return;
   };
   return (
-    <div className="relative max-w-[300px] w-full">
+    <div className="relative max-w-[350px] w-full">
       <form
         onSubmit={onSubmit}
         className=" w-full bg-white/30 text-white flex p-2 rounded-2xl"

@@ -9,7 +9,7 @@ export default async function RelatedProducts({ category }: Props) {
   const productsPromise = await getByCategory(category);
   const admin = await isAdmin();
   return (
-    <section className="w-full  p-3 rounded-md bg-brand-1">
+    <section className="w-full  p-3 rounded-md animate-move-bg transition-colors duration-200">
       <h3 className="text-2xl font-bold text-white">Productos Relacionados</h3>
 
       <ProductsCarousel

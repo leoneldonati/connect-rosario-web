@@ -11,6 +11,7 @@ import CloseAdminButton from "@components/ui/close-admin-session";
 import Link from "next/link";
 import ProductsFeed from "@components/ui/products-feed";
 import { getAll } from "@actions/products";
+import SearchBar from "@components/ui/search-bar";
 export default async function Home() {
   const hasWholesale = await isWholesale();
   const isAdmin = await checkAdmin();
@@ -53,6 +54,10 @@ export default async function Home() {
           </div>
         </div>
       )}
+
+      <div className="p-1 md:hidden bg-neutral-500 w-full rounded-md grid place-items-center">
+        <SearchBar list={products ?? []} />
+      </div>
       {!isAdmin && <CarouselAuto />}
 
       {!isAdmin && (
