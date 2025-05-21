@@ -10,13 +10,12 @@ import CloseWholesaleButton from "@components/ui/close-wholesale-session";
 import CloseAdminButton from "@components/ui/close-admin-session";
 import Link from "next/link";
 import ProductsFeed from "@components/ui/products-feed";
-import ProductsCounter from "@components/admin/products-counter";
-import { Suspense } from "react";
-import Skeleton from "react-loading-skeleton";
+import { getAll } from "@actions/products";
 export default async function Home() {
   const hasWholesale = await isWholesale();
   const isAdmin = await checkAdmin();
 
+  const { products } = await getAll();
   return (
     <section className="flex flex-col gap-4 ">
       {/* MODO MAYORISTA */}
@@ -42,10 +41,7 @@ export default async function Home() {
           </div>
 
           <div className="flex  justify-between">
-            <p className="flex items-center gap-1">
-              <ProductsCounter />
-              productos
-            </p>
+            <p>{products?.length} productos</p>
 
             <Link
               href="/product/add"
@@ -59,11 +55,11 @@ export default async function Home() {
       )}
       {!isAdmin && <CarouselAuto />}
 
-      {!isAdmin && <NewIncomes limit={15} isAdmin={isAdmin} />}
+      {!isAdmin && (
+        <NewIncomes limit={15} isAdmin={isAdmin} list={products ?? []} />
+      )}
 
-      <Suspense fallback={<Skeleton />}>
-        <ProductsFeed isAdmin={isAdmin} />
-      </Suspense>
+      <ProductsFeed products={products ?? []} isAdmin={isAdmin} />
     </section>
   );
 }

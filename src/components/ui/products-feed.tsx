@@ -1,22 +1,23 @@
 "use client";
 
 import ProductCard from "@components/shared/product-card";
-import { useProductStore } from "@store/products";
 import Link from "next/link";
 import { useMemo } from "react";
 
-export default function ProductsFeed({ isAdmin }: { isAdmin: boolean }) {
-  const { list } = useProductStore();
-
+interface Props {
+  isAdmin: boolean;
+  products: Product[];
+}
+export default function ProductsFeed({ isAdmin, products }: Props) {
   const arrayGrouped = useMemo(() => {
-    const groupedObject = Object.groupBy(list, (item) => item.category);
-    return Object.entries(groupedObject).map(([category, products]) => ({
+    const groupedObject = Object.groupBy(products, (item) => item.category);
+    return Object.entries(groupedObject).map(([category, prods]) => ({
       category,
-      products,
+      prods,
     }));
-  }, [list]);
+  }, [products]);
 
-  return arrayGrouped.map(({ category, products }) => (
+  return arrayGrouped.map(({ category, prods }) => (
     <article key={category}>
       <Link
         href={`/categories/${encodeURIComponent(category)}`}
@@ -28,7 +29,7 @@ export default function ProductsFeed({ isAdmin }: { isAdmin: boolean }) {
         </h3>
       </Link>
       <div className="grid  sm:grid-cols-2 md:grid-cols-3 grid-cols-1 lg:grid-cols-5  gap-3 px-2 py-3 place-items-center">
-        {products?.map((prod) => (
+        {prods?.map((prod) => (
           <ProductCard prod={prod} key={prod._id} isAdmin={isAdmin} />
         ))}
       </div>

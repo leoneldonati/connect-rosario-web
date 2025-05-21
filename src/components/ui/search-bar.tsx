@@ -1,15 +1,16 @@
 "use client";
 
-import { useProductStore } from "@store/products";
 import { IconLoader, IconSearch } from "@tabler/icons-react";
 import Image from "next/image";
 import Link from "next/link";
 import { type FormEvent, useState, type ChangeEvent } from "react";
 
-export default function SearchBar() {
+interface Props {
+  list: Product[];
+}
+export default function SearchBar({ list }: Props) {
   const [searching, setSearching] = useState(false);
   const [filteredList, setFilteredList] = useState<Product[]>([]);
-  const { list } = useProductStore();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setSearching(true);

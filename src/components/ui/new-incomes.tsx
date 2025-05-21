@@ -1,14 +1,12 @@
-"use client";
-import { useProductStore } from "@store/products";
 import ProductsCarousel from "./products-carousel";
 
 interface Props {
   limit: number;
   isAdmin: boolean;
+  list: Product[];
 }
 
-export default function NewIncomes({ limit, isAdmin }: Props) {
-  const { list } = useProductStore();
+export default function NewIncomes({ limit, isAdmin, list }: Props) {
   const sortedProducts = [...list].sort(
     (a, b) =>
       new Date(b.created_at).getTime() - new Date(a.created_at).getTime()

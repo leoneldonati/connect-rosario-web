@@ -7,8 +7,6 @@ import ContactButton from "@components/shared/contact-button";
 import PreFooter from "@components/pre-footer";
 import { ToastContainer } from "react-toastify";
 import { CANNONICAL_URL } from "@constants";
-import ProductsLoader from "@components/shared/products-loader";
-import { getAll } from "@actions/products";
 const roboto = Roboto({
   subsets: ["latin"],
 });
@@ -49,8 +47,6 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const { products } = await getAll();
-
   return (
     <html lang="es">
       <body
@@ -78,10 +74,6 @@ export default async function RootLayout({
           draggable
           pauseOnHover
         />
-
-        {/* LOADER */}
-
-        <ProductsLoader products={products ?? []} />
       </body>
     </html>
   );

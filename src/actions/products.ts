@@ -61,6 +61,29 @@ export async function getByCategory(category: string) {
     };
   }
 }
+// OBTENER CATEGORIAS CON SUBCATEGORIAS
+export async function getAvaliblesCategories() {
+  try {
+    const products = await productsModel.find({}).toArray();
+    const groupedByCategory = Object.groupBy(products, (item) => item.category);
+    const avalibleCategories = Object.entries(groupedByCategory).map(
+      ([category, prod]) => ({
+        category,
+        subCategories: [...new Set(prod?.map((p) => p.sub_category))],
+      })
+    );
+
+    return {
+      error: false,
+      avalibleCategories,
+    };
+  } catch {
+    return {
+      error: true,
+      avalibleCategories: null,
+    };
+  }
+}
 // AGREGAR UNO
 export async function insertOne(formState: unknown, formData: FormData) {
   const {
@@ -103,7 +126,6 @@ export async function insertOne(formState: unknown, formData: FormData) {
     }
   }
 
-  console.log(default_image);
   if (arrayBuffer.byteLength === 0 && default_image === null) {
     return {
       error: true,
@@ -178,24 +200,4 @@ export async function deleteOne(
   return {
     error: false,
   };
-}
-// OBTENER CATEGORÍAS DISPONIBLES
-export async function getAvalibleCategories() {
-  try {
-    const products = await productsModel.find().toArray();
-
-    const grouped = Object.groupBy(products, (prod) => prod.category);
-
-    const categories = Object.keys(grouped);
-
-    return {
-      error: false,
-      categories,
-    };
-  } catch {
-    return {
-      error: true,
-      categories: [],
-    };
-  }
 }
