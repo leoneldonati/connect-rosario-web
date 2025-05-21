@@ -1,20 +1,27 @@
 "use client";
 
-import { IconChevronDown } from "@tabler/icons-react";
+import useAvalibleCategories from "@hooks/useAvalibleCategories";
+import { IconChevronDown, IconLoader3 } from "@tabler/icons-react";
 import Link from "next/link";
 import { useState } from "react";
 
-interface Props {
-  avaliblesCategories: { category: string; subCategories: string[] }[];
-}
-
-export default function AsideDesplegableMenu({ avaliblesCategories }: Props) {
+export default function AsideDesplegableMenu() {
   const [expandedCategories, setExpandedCategories] = useState<
     Record<string, boolean>
   >({});
+
+  const { avalibleCategories, pending } = useAvalibleCategories();
+
+  if (pending)
+    return (
+      <div className="flex items-center gap-1 text-brand-1">
+        <p>CARGANDO CATEGORÍAS...</p>
+        <IconLoader3 className="animate-spin" />
+      </div>
+    );
   return (
     <div>
-      {avaliblesCategories.map(({ category, subCategories }) => (
+      {avalibleCategories.map(({ category, subCategories }) => (
         <div key={category}>
           <div
             onClick={() =>

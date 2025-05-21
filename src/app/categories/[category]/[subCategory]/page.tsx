@@ -25,7 +25,7 @@ export default async function SubcategoryPage({
   );
   return (
     <section className="p-2 flex flex-col">
-      <div className="flex justify-between items-center w-full">
+      <div className="flex md:flex-row flex-col justify-between items-center w-full">
         <div className="uppercase my-4">
           <Link
             href="/"
@@ -49,8 +49,10 @@ export default async function SubcategoryPage({
       </div>
 
       <div className="flex">
-        <AsideCategoriesMenu />
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 place-items-center gap-2">
+        <div className="hidden md:block w-fit">
+          <AsideCategoriesMenu />
+        </div>
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 place-items-center gap-2">
           {filteredBySubcategory.map((prod) => (
             <ProductCard prod={prod} key={prod._id} isAdmin={admin} />
           ))}

@@ -28,7 +28,7 @@ export default function ProductsFeed({ isAdmin, products }: Props) {
           {category}
         </h3>
       </Link>
-      <div className="grid  sm:grid-cols-2 md:grid-cols-3 grid-cols-1 lg:grid-cols-5  gap-3 px-2 py-3 place-items-center">
+      <div className="grid  grid-cols-2 md:grid-cols-4 lg:grid-cols-5  gap-3 px-2 py-3 place-items-center">
         {prods?.map((prod) => (
           <ProductCard prod={prod} key={prod._id} isAdmin={isAdmin} />
         ))}

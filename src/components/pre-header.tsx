@@ -9,7 +9,7 @@ export default async function PreHeader() {
   if (!avalibleCategories) return false;
 
   return (
-    <header className="hidden md:flex max-w-full flex-row shadow-xl shadow-black/10 sticky top-24 z-40 bg-white mb-4">
+    <header className="max-w-full hidden md:flex flex-row shadow-xl shadow-black/10 sticky top-24 z-40 bg-white mb-4">
       {avalibleCategories.length === 0 && (
         <strong className="text-red-500">No hay categorías disponibles</strong>
       )}
